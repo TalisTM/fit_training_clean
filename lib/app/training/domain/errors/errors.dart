@@ -1,0 +1,1 @@
+abstract class FailureWorkout implements Exception {}
