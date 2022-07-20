@@ -1,1 +1,1 @@
-abstract class FailureCreateUser implements Exception {}
+abstract class FailureUser implements Exception {}
