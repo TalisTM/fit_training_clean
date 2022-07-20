@@ -1,4 +1,4 @@
-import 'package:fit_training_clean/app/training/domain/entities/workout_entity.dart';
+import 'package:fit_training_clean/app/modules/training/domain/entities/workout_entity.dart';
 
 class UserEntity {
   final String id;
