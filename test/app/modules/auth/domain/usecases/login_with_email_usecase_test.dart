@@ -25,22 +25,21 @@ void main() {
     repository = LoginRepositoryMock();
     service = ConnectivityServiceMock();
     usecase = LoginWithEmailUsecaseImpl(repository, service);
-  });
 
+    when(() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))).thenAnswer((_) async => Right(userEntityMock));
+    when(() => service.isOnline()).thenAnswer((_) async => const Right(unit));
+  });
+  
   group("Quando chamar o LoginWithEmailUsecase,", () {
     test("Deve retonar um UserEntity", () async {
-      when(() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))).thenAnswer((_) async => Right(userEntityMock));
-      when(() => service.isOnline()).thenAnswer((_) async => const Right(unit));
-      
       var result = await usecase(loginCredentialsMock);
 
       expect(result, Right(userEntityMock));
+
+      verify(() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))).called(1);
     });
 
     test("Deve retonar um ErrorLoginEmail", () async {
-      when(() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))).thenAnswer((_) async => Right(userEntityMock));
-      when(() => service.isOnline()).thenAnswer((_) async => const Right(unit));
-
       List<String> inputEmail = ["", "fsdfsdfssdf", "talismarchioro", "@gmail.com", ".com"];
       for(String email in inputEmail) {
         loginCredentialsMock = LoginCredentials.withEmailAndPassword(email: email, password: "1234");
@@ -52,9 +51,6 @@ void main() {
     });
 
     test("Deve retonar um ErrorLoginPassword", () async {
-      when(() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))).thenAnswer((_) async => Right(userEntityMock));
-      when(() => service.isOnline()).thenAnswer((_) async => const Right(unit));
-
       List<String> inputPassword = ["", "12", "123", "abc"];
       for(String password in inputPassword) {
         loginCredentialsMock = LoginCredentials.withEmailAndPassword(email: "talismarchioro@gmail.com", password: password);
@@ -66,7 +62,6 @@ void main() {
     });
 
     test("Deve retonar um ConnectionError quando offline", () async {
-      when(() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))).thenAnswer((_) async => Right(userEntityMock));
       when(() => service.isOnline()).thenAnswer((_) async => Left(ConnectionError()));
 
       var result = await usecase(loginCredentialsMock);

@@ -1,11 +1,16 @@
 abstract class FailureUser implements Exception {}
 
+class ConnectionError implements FailureUser {
+  String? message;
+  ConnectionError({this.message});
+}
+
 class ErrorLoginEmail implements FailureUser {
   String? message;
   ErrorLoginEmail({this.message});
 }
 
-class ConnectionError implements FailureUser {
+class ErrorLoginGoogle implements FailureUser {
   String? message;
-  ConnectionError({this.message});
+  ErrorLoginGoogle({this.message});
 }
