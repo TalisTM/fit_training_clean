@@ -17,8 +17,21 @@ class LoginWithEmailUsecaseImpl implements LoginWithEmailUsecase {
   LoginWithEmailUsecaseImpl(this.repository, this.service);
 
   @override
-  Future<Either<FailureUser, UserEntity>> call(LoginCredentials credential) {
-    throw UnimplementedError();
+  Future<Either<FailureUser, UserEntity>> call(LoginCredentials credential) async {
+    var resultConnection = await service.isOnline();
+    if(resultConnection.isLeft()) {
+      return Left(ConnectionError(message: "no connection"));
+    }
+
+    if(!credential.isValidEmail) {
+      return Left(ErrorLoginEmail(message: "Invalid email"));
+    } else if(!credential.isValidPassword) {
+      return Left(ErrorLoginEmail(message: "Invalid password"));
+    }
+    
+    var result = await repository.loginEmail(email: credential.email!, password: credential.password!);
+
+    return result;
   }
 
 }
