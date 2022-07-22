@@ -11,13 +11,23 @@ class LoginRepositoryImpl implements LoginRepository {
   LoginRepositoryImpl(this.datasource);
 
   @override
-  Future<Either<FailureUser, UserEntity>> loginEmail({required String email, required String password}) {
-    throw UnimplementedError();
+  Future<Either<FailureUser, UserEntity>> loginEmail({required String email, required String password}) async {
+    try {
+      var user = await datasource.loginEmail(email: email, password: password);
+      return Right(user);
+    } catch (e) {
+      return Left(ErrorLoginEmail(message: "Error login with email"));
+    }
   }
 
   @override
-  Future<Either<FailureUser, UserEntity>> loginGoogle({required String idToken, required String accessToken}) {
-    throw UnimplementedError();
+  Future<Either<FailureUser, UserEntity>> loginGoogle({required String idToken, required String accessToken}) async {
+    try {
+      var user = await datasource.loginGoogle(idToken: idToken, accessToken: accessToken);
+      return Right(user);
+    } catch (e) {
+      return Left(ErrorLoginGoogle(message: "Error login with google"));
+    }
   }
   
 }
