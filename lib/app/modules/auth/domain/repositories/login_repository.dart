@@ -6,4 +6,8 @@ abstract class LoginRepository {
   Future<Either<FailureUser, UserEntity>> loginEmail({required String email, required String password});
 
   Future<Either<FailureUser, UserEntity>> loginGoogle({required String idToken, required String accessToken});
+
+  Future<Either<FailureUser, UserEntity>> loggedUser();
+
+  Future<Either<FailureUser, Unit>> logout();
 }

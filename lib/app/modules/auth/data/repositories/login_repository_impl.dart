@@ -30,4 +30,16 @@ class LoginRepositoryImpl implements LoginRepository {
     }
   }
   
+  @override
+  Future<Either<FailureUser, UserEntity>> loggedUser() {
+    // TODO: implement loggedUser
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<FailureUser, Unit>> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+  
 }

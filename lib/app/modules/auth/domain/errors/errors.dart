@@ -14,3 +14,13 @@ class ErrorLoginGoogle implements FailureUser {
   String? message;
   ErrorLoginGoogle({this.message});
 }
+
+class ErrorGetLoggedUser implements FailureUser {
+  String? message;
+  ErrorGetLoggedUser({this.message});
+}
+
+class ErrorLogout implements FailureUser {
+  String? message;
+  ErrorLogout({this.message});
+}
