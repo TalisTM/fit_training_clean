@@ -21,5 +21,4 @@ class FirebaseDatasourceImpl implements LoginDatasource {
   Future<void> logout() {
     throw UnimplementedError();
   }
-  
 }
