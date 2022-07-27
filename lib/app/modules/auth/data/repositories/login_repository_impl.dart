@@ -31,15 +31,23 @@ class LoginRepositoryImpl implements LoginRepository {
   }
   
   @override
-  Future<Either<FailureUser, UserEntity>> loggedUser() {
-    // TODO: implement loggedUser
-    throw UnimplementedError();
+  Future<Either<FailureUser, UserEntity>> loggedUser() async {
+    try {
+      var user = await datasource.currentUser();
+      return Right(user);
+    } catch (e) {
+      return Left(ErrorGetLoggedUser(message: "Error trying to retrieve logged user"));
+    }
   }
   
   @override
-  Future<Either<FailureUser, Unit>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Either<FailureUser, Unit>> logout() async {
+    try {
+      await datasource.logout();
+      return const Right(unit);
+    } catch (e) {
+      return Left(ErrorLogout(message: "Error when logout user"));
+    }
   }
   
 }
