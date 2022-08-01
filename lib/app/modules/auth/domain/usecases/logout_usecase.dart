@@ -9,7 +9,7 @@ abstract class LogoutUsecase {
 class LogoutUsecaseImpl implements LogoutUsecase {
 
   final LoginRepository repository;
-  LogoutUsecaseImpl(this.repository);
+  LogoutUsecaseImpl({required this.repository});
 
 
   @override

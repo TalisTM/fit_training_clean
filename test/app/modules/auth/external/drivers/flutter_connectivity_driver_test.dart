@@ -12,7 +12,7 @@ void main() {
 
   setUp(() {
     connectivity = ConnectivityMock();
-    driver = FlutterConnectivityDriver(connectivity);
+    driver = FlutterConnectivityDriver(connectivity: connectivity);
   });
 
   test("Deve retornar um bool mobile", () {

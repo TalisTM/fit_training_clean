@@ -6,7 +6,7 @@ import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 class FirebaseDatasourceImpl implements LoginDatasource {
 
   final FirebaseAuth auth;
-  FirebaseDatasourceImpl(this.auth);
+  FirebaseDatasourceImpl({required this.auth});
 
   @override
   Future<UserModel> loginEmail({required String email, required String password}) async {

@@ -29,7 +29,7 @@ void main() {
   );
 
   final userCredential = UserCredentialMock();
-  final datasource = FirebaseDatasourceImpl(auth);
+  final datasource = FirebaseDatasourceImpl(auth: auth);
 
   setUpAll(() {
     when(() => firebaseUser.displayName).thenReturn("Talis");

@@ -8,7 +8,7 @@ import 'package:fit_training_clean/app/modules/auth/domain/repositories/login_re
 class LoginRepositoryImpl implements LoginRepository {
 
   LoginDatasource datasource;
-  LoginRepositoryImpl(this.datasource);
+  LoginRepositoryImpl({required this.datasource});
 
   @override
   Future<Either<FailureUser, UserEntity>> loginEmail({required String email, required String password}) async {

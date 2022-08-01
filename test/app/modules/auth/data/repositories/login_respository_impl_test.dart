@@ -18,7 +18,7 @@ void main() {
 
   setUp(() {
     datasource = LoginDatasourceMock();
-    repository = LoginRepositoryImpl(datasource);
+    repository = LoginRepositoryImpl(datasource: datasource);
   });
 
   group("LoginEmail", () {

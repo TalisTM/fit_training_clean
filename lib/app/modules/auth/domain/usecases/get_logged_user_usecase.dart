@@ -10,7 +10,7 @@ abstract class GetLoggedUserUsecase {
 class GetLoggedUserUsecaseImpl implements GetLoggedUserUsecase {
 
   final LoginRepository repository;
-  GetLoggedUserUsecaseImpl(this.repository);
+  GetLoggedUserUsecaseImpl({required this.repository});
 
   @override
   Future<Either<FailureUser, UserEntity>> call() async {

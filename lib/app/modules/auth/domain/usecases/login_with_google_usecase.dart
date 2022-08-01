@@ -14,7 +14,7 @@ class LoginWithGoogleImpl implements LoginWithGoogle {
 
   LoginRepository repository;
   ConnectivityService service;
-  LoginWithGoogleImpl(this.repository, this.service);
+  LoginWithGoogleImpl({required this.repository, required this.service});
 
   @override
   Future<Either<FailureUser, UserEntity>> call(LoginCredentials credential) async {

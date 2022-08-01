@@ -14,7 +14,7 @@ class LoginWithEmailUsecaseImpl implements LoginWithEmailUsecase {
   final LoginRepository repository;
   final ConnectivityService service;
 
-  LoginWithEmailUsecaseImpl(this.repository, this.service);
+  LoginWithEmailUsecaseImpl({required this.repository, required  this.service});
 
   @override
   Future<Either<FailureUser, UserEntity>> call(LoginCredentials credential) async {

@@ -24,7 +24,7 @@ void main() {
   setUp(() {
     repository = LoginRepositoryMock();
     service = ConnectivityServiceMock();
-    usecase = LoginWithGoogleImpl(repository, service);
+    usecase = LoginWithGoogleImpl(repository: repository,service:  service);
 
     when(() => repository.loginGoogle(idToken: any(named: "idToken"), accessToken: any(named: "accessToken"))).thenAnswer((_) async => Right(userEntityMock));
     when(() => service.isOnline()).thenAnswer((_) async => const Right(unit));

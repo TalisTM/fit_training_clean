@@ -4,7 +4,7 @@ import 'package:fit_training_clean/app/modules/auth/data/drivers/conectivity_dri
 class FlutterConnectivityDriver implements ConnectivityDriver {
   final Connectivity connectivity;
 
-  FlutterConnectivityDriver(this.connectivity);
+  FlutterConnectivityDriver({required this.connectivity});
   
   @override
   Future<bool> get isOnline async {

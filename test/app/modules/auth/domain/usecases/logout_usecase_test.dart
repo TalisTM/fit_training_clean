@@ -13,7 +13,7 @@ void main() {
 
   setUp(() {
     repository = LoginRepositoryMock();
-    usecase = LogoutUsecaseImpl(repository);
+    usecase = LogoutUsecaseImpl(repository: repository);
   });
 
   test("Verificar se está logado", () async {

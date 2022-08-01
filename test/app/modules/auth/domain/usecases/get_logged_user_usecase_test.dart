@@ -17,7 +17,7 @@ void main() {
 
   setUp(() {
     repository = LoginRepositoryMock();
-    usecase = GetLoggedUserUsecaseImpl(repository);
+    usecase = GetLoggedUserUsecaseImpl(repository: repository);
   });
 
   test("Verificar se existe usuario logado", () async {

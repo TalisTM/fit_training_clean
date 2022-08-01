@@ -6,7 +6,7 @@ import 'package:fit_training_clean/app/modules/auth/domain/services/conectivity_
 class ConnectivityServiceImpl implements ConnectivityService {
 
   final ConnectivityDriver driver;
-  ConnectivityServiceImpl(this.driver);
+  ConnectivityServiceImpl({required this.driver});
 
   @override
   Future<Either<FailureUser, Unit>> isOnline() async {

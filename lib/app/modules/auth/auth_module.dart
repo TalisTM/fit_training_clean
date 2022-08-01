@@ -12,16 +12,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 class AuthModule extends Module {
   @override
   List<Bind<Object>> get binds => [
-        Bind((i) => FirebaseAuth.instance),
-        Bind((i) => LoginWithEmailUsecaseImpl(i(), i())),
-        Bind((i) => LoginWithGoogleImpl(i(), i())),
-        Bind((i) => GetLoggedUserUsecaseImpl(i())),
-        Bind((i) => LogoutUsecaseImpl(i())),
-        Bind((i) => LoginRepositoryImpl(i())),
-        Bind((i) => FirebaseDatasourceImpl(i())),
-        Bind((i) => ConnectivityServiceImpl(i())),
-        Bind((i) => FlutterConnectivityDriver(i()))
-      ];
+    Bind((i) => FirebaseAuth.instance),
+    Bind((i) => LoginWithEmailUsecaseImpl(repository: i(), service: i())),
+    Bind((i) => LoginWithGoogleImpl(repository: i(), service: i())),
+    Bind((i) => GetLoggedUserUsecaseImpl(repository: i())),
+    Bind((i) => LogoutUsecaseImpl(repository: i())),
+    Bind((i) => LoginRepositoryImpl(datasource: i())),
+    Bind((i) => FirebaseDatasourceImpl(auth: i())),
+    Bind((i) => ConnectivityServiceImpl(driver: i())),
+    Bind((i) => FlutterConnectivityDriver(connectivity: i()))
+  ];
 
   @override
   List<ModularRoute> get routes => [

@@ -13,7 +13,7 @@ void main() {
 
   setUp(() {
     driver = ConnectivityDriverMock();
-    service = ConnectivityServiceImpl(driver);
+    service = ConnectivityServiceImpl(driver: driver);
   });
 
     group("ConnectivityServiceImpl", () {

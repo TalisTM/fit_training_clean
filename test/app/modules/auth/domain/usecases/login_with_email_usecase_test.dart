@@ -24,7 +24,7 @@ void main() {
     registerFallbackValue(loginCredentialsMock);
     repository = LoginRepositoryMock();
     service = ConnectivityServiceMock();
-    usecase = LoginWithEmailUsecaseImpl(repository, service);
+    usecase = LoginWithEmailUsecaseImpl(repository: repository, service: service);
 
     when(() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))).thenAnswer((_) async => Right(userEntityMock));
     when(() => service.isOnline()).thenAnswer((_) async => const Right(unit));
