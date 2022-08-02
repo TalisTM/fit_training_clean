@@ -6,15 +6,15 @@ import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/repositories/login_repository.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/services/conectivity_service.dart';
 
-abstract class LoginWithGoogle {
+abstract class LoginWithGoogleUsecase {
   Future<Either<FailureUser, UserEntity>> call(LoginCredentials credential);
 }
 
-class LoginWithGoogleImpl implements LoginWithGoogle {
+class LoginWithGoogleUsecaseImpl implements LoginWithGoogleUsecase {
 
   LoginRepository repository;
   ConnectivityService service;
-  LoginWithGoogleImpl({required this.repository, required this.service});
+  LoginWithGoogleUsecaseImpl({required this.repository, required this.service});
 
   @override
   Future<Either<FailureUser, UserEntity>> call(LoginCredentials credential) async {

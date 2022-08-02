@@ -19,12 +19,12 @@ void main() {
   
   late LoginRepository repository;
   late ConnectivityService service;
-  late LoginWithGoogle usecase;
+  late LoginWithGoogleUsecase usecase;
 
   setUp(() {
     repository = LoginRepositoryMock();
     service = ConnectivityServiceMock();
-    usecase = LoginWithGoogleImpl(repository: repository,service:  service);
+    usecase = LoginWithGoogleUsecaseImpl(repository: repository,service:  service);
 
     when(() => repository.loginGoogle(idToken: any(named: "idToken"), accessToken: any(named: "accessToken"))).thenAnswer((_) async => Right(userEntityMock));
     when(() => service.isOnline()).thenAnswer((_) async => const Right(unit));
