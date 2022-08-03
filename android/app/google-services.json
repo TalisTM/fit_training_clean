@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "943750919754",
+    "project_id": "fit-training-clean",
+    "storage_bucket": "fit-training-clean.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943750919754:android:cbcd0bdd1ee370bd7b58b3",
+        "android_client_info": {
+          "package_name": "com.example.fit_training_clean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943750919754-7nphpft136t9kukb633cf05u6sl8r96k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fit_training_clean",
+            "certificate_hash": "9e42ba04e350d92b2526c93f2efaeacf5ec10190"
+          }
+        },
+        {
+          "client_id": "943750919754-r4fuieln4m5gmr2h15fngsn7pi5ojg0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvmTwieAN-E8vxYToHiXRHrXZksTvn8aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943750919754-r4fuieln4m5gmr2h15fngsn7pi5ojg0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,7 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class InitApp {
   static void init() async {
-    //await _dependencies();
+    await _dependencies();
     _initializeApp();
   }
 

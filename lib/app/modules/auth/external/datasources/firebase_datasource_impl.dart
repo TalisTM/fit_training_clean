@@ -4,7 +4,6 @@ import 'package:fit_training_clean/app/modules/auth/data/models/user_model.dart'
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 
 class FirebaseDatasourceImpl implements LoginDatasource {
-
   final FirebaseAuth auth;
   FirebaseDatasourceImpl({required this.auth});
 
@@ -14,48 +13,44 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     var user = result.user;
 
     return UserModel(
-      name: user!.displayName ?? "",
-      email: user.email ?? "",
-      photoUrl: user.photoURL ?? "",
-      amountDone: 0,
-      restTimeInSeconds: 60,
-      workouts: []
-    );
+        name: user!.displayName ?? "",
+        email: user.email ?? "",
+        photoUrl: user.photoURL ?? "",
+        amountDone: 0,
+        restTimeInSeconds: 60,
+        workouts: []);
   }
 
   @override
   Future<UserModel> loginGoogle({required String idToken, required String accessToken}) async {
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      idToken: idToken, accessToken: accessToken
-    );
+    final AuthCredential credential =
+        GoogleAuthProvider.credential(idToken: idToken, accessToken: accessToken);
     var result = await auth.signInWithCredential(credential);
 
     var user = result.user;
 
     return UserModel(
-      name: user!.displayName ?? "",
-      email: user.email ?? "",
-      photoUrl: user.photoURL ?? "",
-      amountDone: 0,
-      restTimeInSeconds: 60,
-      workouts: []
-    );
+        name: user!.displayName ?? "",
+        email: user.email ?? "",
+        photoUrl: user.photoURL ?? "",
+        amountDone: 0,
+        restTimeInSeconds: 60,
+        workouts: []);
   }
 
   @override
   Future<UserModel> currentUser() async {
     var user = auth.currentUser;
 
-    if(user == null) throw ErrorGetLoggedUser();
+    if (user == null) throw ErrorGetLoggedUser();
 
     return UserModel(
-      name: user.displayName ?? "",
-      email: user.email ?? "",
-      photoUrl: user.photoURL ?? "",
-      amountDone: 0,
-      restTimeInSeconds: 60,
-      workouts: []
-    );
+        name: user.displayName ?? "",
+        email: user.email ?? "",
+        photoUrl: user.photoURL ?? "",
+        amountDone: 0,
+        restTimeInSeconds: 60,
+        workouts: []);
   }
 
   @override

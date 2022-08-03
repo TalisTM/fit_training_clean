@@ -1,10 +1,12 @@
 import 'package:asuka/asuka.dart' as asuka;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_training_clean/app/core/stores/auth_store.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/login_with_email_usecase.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/login_with_google_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_store.g.dart';
@@ -44,7 +46,7 @@ abstract class _LoginStoreBase with Store {
   bool get isValid => credential.isValidEmail && credential.isValidPassword;
 
   enterEmail() async {
-    //loading on
+    // loading on
     var result = await loginWithEmailUsecase(credential);
     //loading off
     result.fold(
@@ -58,6 +60,16 @@ abstract class _LoginStoreBase with Store {
   }
 
   enterGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
+
+    LoginCredentials credential = LoginCredentials.withGoogle(
+      idToken: googleSignInAuthentication.idToken!,
+      accessToken: googleSignInAuthentication.accessToken!,
+    );
+
     //loading on
     var result = await loginWithGoogleUsecase(credential);
     //loading off
