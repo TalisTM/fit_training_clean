@@ -50,7 +50,7 @@ void main() {
       verifyNever((() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))));
     });
 
-    test("Deve retonar um ErrorLoginPassword", () async {
+    test("Deve retonar um ErrorLoginEmail", () async {
       List<String> inputPassword = ["", "12", "123", "abc"];
       for(String password in inputPassword) {
         loginCredentialsMock = LoginCredentials.withEmailAndPassword(email: "talismarchioro@gmail.com", password: password);
@@ -69,6 +69,5 @@ void main() {
 
       verifyNever((() => repository.loginEmail(email: any(named: "email"), password: any(named: "password"))));
     });
-
   });
 }

@@ -3,9 +3,20 @@ import 'package:fit_training_clean/app/modules/auth/domain/entities/user_entity.
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 
 abstract class LoginRepository {
-  Future<Either<FailureUser, UserEntity>> loginEmail({required String email, required String password});
+  Future<Either<FailureUser, UserEntity>> registerEmail({
+    required String email,
+    required String password,
+  });
 
-  Future<Either<FailureUser, UserEntity>> loginGoogle({required String idToken, required String accessToken});
+  Future<Either<FailureUser, UserEntity>> loginEmail({
+    required String email,
+    required String password,
+  });
+
+  Future<Either<FailureUser, UserEntity>> loginGoogle({
+    required String idToken,
+    required String accessToken,
+  });
 
   Future<Either<FailureUser, UserEntity>> loggedUser();
 

@@ -1,5 +1,4 @@
 import 'package:asuka/asuka.dart' as asuka;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_training_clean/app/core/stores/auth_store.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/login_with_email_usecase.dart';

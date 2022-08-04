@@ -10,6 +10,11 @@ class LoginRepositoryImpl implements LoginRepository {
   LoginDatasource datasource;
   LoginRepositoryImpl({required this.datasource});
 
+   @override
+  Future<Either<FailureUser, UserEntity>> registerEmail({required String email, required String password}) {
+    throw UnimplementedError();
+  }
+
   @override
   Future<Either<FailureUser, UserEntity>> loginEmail({required String email, required String password}) async {
     try {
@@ -49,5 +54,4 @@ class LoginRepositoryImpl implements LoginRepository {
       return Left(ErrorLogout(message: "Error when logout user"));
     }
   }
-  
 }

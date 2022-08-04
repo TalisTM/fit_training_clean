@@ -8,6 +8,12 @@ class ConnectionError implements FailureUser {
   ConnectionError({this.message = ""});
 }
 
+class ErrorRegisterEmail implements FailureUser {
+  @override
+  String message;
+  ErrorRegisterEmail({this.message = ""});
+}
+
 class ErrorLoginEmail implements FailureUser {
   @override
   String message;

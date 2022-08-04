@@ -17,12 +17,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: const Text("Login"),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          Center(child: Icon(Icons.heart_broken, size: 30)),
+          const Center(child: Icon(Icons.heart_broken, size: 30)),
           TextField(
             onChanged: store.setEmail,
           ),
@@ -31,9 +31,9 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Observer(builder: (context) {
             return TextButton(
-                onPressed: store.isValid ? store.enterEmail : null, child: Text("Login"));
+                onPressed: store.isValid ? store.enterEmail : null, child: const Text("Login"));
           }),
-          TextButton(onPressed: store.enterGoogle, child: Text("Google"))
+          TextButton(onPressed: store.enterGoogle, child: const Text("Google"))
         ],
       ),
     );
