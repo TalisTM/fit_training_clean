@@ -1,22 +1,31 @@
 import 'package:dartz/dartz.dart';
 import 'package:fit_training_clean/app/modules/auth/data/datasources/login_datasource.dart';
-
 import 'package:fit_training_clean/app/modules/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/repositories/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
-
   LoginDatasource datasource;
   LoginRepositoryImpl({required this.datasource});
 
-   @override
-  Future<Either<FailureUser, UserEntity>> registerEmail({required String email, required String password}) {
-    throw UnimplementedError();
+  @override
+  Future<Either<FailureUser, UserEntity>> registerEmail({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      var user = await datasource.registerEmail(email: email, password: password);
+      return Right(user);
+    } catch (e) {
+      return Left(ErrorRegisterEmail(message: "Error register with email"));
+    }
   }
 
   @override
-  Future<Either<FailureUser, UserEntity>> loginEmail({required String email, required String password}) async {
+  Future<Either<FailureUser, UserEntity>> loginEmail({
+    required String email,
+    required String password,
+  }) async {
     try {
       var user = await datasource.loginEmail(email: email, password: password);
       return Right(user);
@@ -26,7 +35,8 @@ class LoginRepositoryImpl implements LoginRepository {
   }
 
   @override
-  Future<Either<FailureUser, UserEntity>> loginGoogle({required String idToken, required String accessToken}) async {
+  Future<Either<FailureUser, UserEntity>> loginGoogle(
+      {required String idToken, required String accessToken}) async {
     try {
       var user = await datasource.loginGoogle(idToken: idToken, accessToken: accessToken);
       return Right(user);
@@ -34,7 +44,7 @@ class LoginRepositoryImpl implements LoginRepository {
       return Left(ErrorLoginGoogle(message: "Error login with google"));
     }
   }
-  
+
   @override
   Future<Either<FailureUser, UserEntity>> loggedUser() async {
     try {
@@ -44,7 +54,7 @@ class LoginRepositoryImpl implements LoginRepository {
       return Left(ErrorGetLoggedUser(message: "Error trying to retrieve logged user"));
     }
   }
-  
+
   @override
   Future<Either<FailureUser, Unit>> logout() async {
     try {

@@ -8,6 +8,11 @@ class FirebaseDatasourceImpl implements LoginDatasource {
   FirebaseDatasourceImpl({required this.auth});
 
   @override
+  Future<UserModel> registerEmail({required String email, required String password}) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<UserModel> loginEmail({required String email, required String password}) async {
     var result = await auth.signInWithEmailAndPassword(email: email, password: password);
     var user = result.user;
@@ -23,8 +28,10 @@ class FirebaseDatasourceImpl implements LoginDatasource {
 
   @override
   Future<UserModel> loginGoogle({required String idToken, required String accessToken}) async {
-    final AuthCredential credential =
-        GoogleAuthProvider.credential(idToken: idToken, accessToken: accessToken);
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: idToken,
+      accessToken: accessToken,
+    );
     var result = await auth.signInWithCredential(credential);
 
     var user = result.user;

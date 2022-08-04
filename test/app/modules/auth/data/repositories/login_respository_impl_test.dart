@@ -7,12 +7,18 @@ import 'package:fit_training_clean/app/modules/auth/domain/repositories/login_re
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-
 class LoginDatasourceMock extends Mock implements LoginDatasource {}
-void main() {
 
-  final userMock = UserModel(name: "Talis", email: "talis@gmail.com", photoUrl: "photoUrl", amountDone: 0, restTimeInSeconds: 30, workouts: []);
-  
+void main() {
+  final userMock = UserModel(
+    name: "Talis",
+    email: "talis@gmail.com",
+    photoUrl: "photoUrl",
+    amountDone: 0,
+    restTimeInSeconds: 30,
+    workouts: [],
+  );
+
   late LoginRepository repository;
   late LoginDatasource datasource;
 
@@ -21,13 +27,47 @@ void main() {
     repository = LoginRepositoryImpl(datasource: datasource);
   });
 
+  group("RegisterEmail", () {
+    test("Deve retornar um UserModel", () async {
+      when(
+        () => datasource.registerEmail(
+          email: any(named: "email"),
+          password: any(named: "password"),
+        ),
+      ).thenAnswer((_) async => userMock);
+
+      var result = await repository.registerEmail(
+        email: "",
+        password: "",
+      );
+
+      expect(result, Right(userMock));
+    });
+
+    test("Deve retornar um ErrorRegisterEmail", () async {
+      when(
+        () => datasource.registerEmail(
+          email: any(named: "email"),
+          password: any(named: "password"),
+        ),
+      ).thenThrow(ErrorRegisterEmail());
+
+      var result = await repository.registerEmail(
+        email: "",
+        password: "",
+      );
+
+      expect(result.leftMap((l) => l is ErrorRegisterEmail), const Left(true));
+    });
+  });
+
   group("LoginEmail", () {
     test("Deve retornar um userModel", () async {
       when(
         () => datasource.loginEmail(
           email: any(named: "email"),
-          password: any(named: "password")
-        )
+          password: any(named: "password"),
+        ),
       ).thenAnswer((_) async => userMock);
 
       var result = await repository.loginEmail(email: '', password: '');
@@ -38,14 +78,14 @@ void main() {
       when(
         () => datasource.loginEmail(
           email: any(named: "email"),
-          password: any(named: "password")
-        )
+          password: any(named: "password"),
+        ),
       ).thenThrow(ErrorLoginEmail());
 
       var result = await repository.loginEmail(email: '', password: '');
 
       expect(result.leftMap((l) => l is ErrorLoginEmail), const Left(true));
-    });   
+    });
   });
 
   group("LoginGoogle", () {
@@ -53,8 +93,8 @@ void main() {
       when(
         () => datasource.loginGoogle(
           accessToken: any(named: "accessToken"),
-          idToken: any(named: "idToken")
-        )
+          idToken: any(named: "idToken"),
+        ),
       ).thenAnswer((_) async => userMock);
 
       var result = await repository.loginGoogle(accessToken: '', idToken: '');
@@ -65,14 +105,14 @@ void main() {
       when(
         () => datasource.loginGoogle(
           accessToken: any(named: "accessToken"),
-          idToken: any(named: "idToken")
-        )
+          idToken: any(named: "idToken"),
+        ),
       ).thenThrow(ErrorLoginGoogle());
 
       var result = await repository.loginGoogle(accessToken: '', idToken: '');
 
       expect(result.leftMap((l) => l is ErrorLoginGoogle), const Left(true));
-    });   
+    });
   });
 
   group("LoggedUser", () {
@@ -110,5 +150,4 @@ void main() {
       expect(result.leftMap((l) => l is ErrorLogout), const Left(true));
     });
   });
-
 }
