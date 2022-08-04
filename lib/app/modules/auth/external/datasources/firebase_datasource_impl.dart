@@ -8,8 +8,18 @@ class FirebaseDatasourceImpl implements LoginDatasource {
   FirebaseDatasourceImpl({required this.auth});
 
   @override
-  Future<UserModel> registerEmail({required String email, required String password}) {
-    throw UnimplementedError();
+  Future<UserModel> registerEmail({required String email, required String password}) async {
+    var result = await auth.createUserWithEmailAndPassword(email: email, password: password);
+    var user = result.user;
+
+    return UserModel(
+      name: user!.displayName ?? "",
+      email: user.email ?? "",
+      photoUrl: user.photoURL ?? "",
+      amountDone: 0,
+      restTimeInSeconds: 60,
+      workouts: [],
+    );
   }
 
   @override
@@ -18,12 +28,13 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     var user = result.user;
 
     return UserModel(
-        name: user!.displayName ?? "",
-        email: user.email ?? "",
-        photoUrl: user.photoURL ?? "",
-        amountDone: 0,
-        restTimeInSeconds: 60,
-        workouts: []);
+      name: user!.displayName ?? "",
+      email: user.email ?? "",
+      photoUrl: user.photoURL ?? "",
+      amountDone: 0,
+      restTimeInSeconds: 60,
+      workouts: [],
+    );
   }
 
   @override
@@ -37,12 +48,13 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     var user = result.user;
 
     return UserModel(
-        name: user!.displayName ?? "",
-        email: user.email ?? "",
-        photoUrl: user.photoURL ?? "",
-        amountDone: 0,
-        restTimeInSeconds: 60,
-        workouts: []);
+      name: user!.displayName ?? "",
+      email: user.email ?? "",
+      photoUrl: user.photoURL ?? "",
+      amountDone: 0,
+      restTimeInSeconds: 60,
+      workouts: [],
+    );
   }
 
   @override
@@ -52,12 +64,13 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     if (user == null) throw ErrorGetLoggedUser();
 
     return UserModel(
-        name: user.displayName ?? "",
-        email: user.email ?? "",
-        photoUrl: user.photoURL ?? "",
-        amountDone: 0,
-        restTimeInSeconds: 60,
-        workouts: []);
+      name: user.displayName ?? "",
+      email: user.email ?? "",
+      photoUrl: user.photoURL ?? "",
+      amountDone: 0,
+      restTimeInSeconds: 60,
+      workouts: [],
+    );
   }
 
   @override

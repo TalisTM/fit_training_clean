@@ -44,9 +44,26 @@ void main() {
       ),
     ).thenAnswer((_) async => userCredential);
 
-    registerFallbackValue(
-        const AuthCredential(providerId: "providerId", signInMethod: "signInMethod"));
+    when(
+      () => auth.createUserWithEmailAndPassword(
+        email: any(named: "email"),
+        password: any(named: "password"),
+      ),
+    ).thenAnswer((_) async => userCredential);
+
+    registerFallbackValue(const AuthCredential(
+      providerId: "providerId",
+      signInMethod: "signInMethod",
+    ));
     when(() => auth.signInWithCredential(any())).thenAnswer((_) async => userCredential);
+  });
+
+  test("Deve retornar um userEntity via RegisterEmail", () async {
+    var result = await datasource.registerEmail(email: "", password: "");
+
+    expect(result.name, equals(user.name));
+    expect(result.email, equals(user.email));
+    expect(result.photoUrl, equals(user.photoUrl));
   });
 
   test("Deve retornar um UserEntity via loginEmail", () async {
