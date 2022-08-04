@@ -3,10 +3,12 @@ import 'package:fit_training_clean/app/modules/auth/data/datasources/login_datas
 import 'package:fit_training_clean/app/modules/auth/data/models/google_authentication_model.dart';
 import 'package:fit_training_clean/app/modules/auth/data/models/user_model.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseDatasourceImpl implements LoginDatasource {
   final FirebaseAuth auth;
-  FirebaseDatasourceImpl({required this.auth});
+  final GoogleSignIn googleSignIn;
+  FirebaseDatasourceImpl({required this.auth, required this.googleSignIn});
 
   @override
   Future<UserModel> registerEmail({required String email, required String password}) async {
@@ -39,8 +41,14 @@ class FirebaseDatasourceImpl implements LoginDatasource {
   }
 
   @override
-  Future<GoogleAuthenticationModel> getGoogleAuthentication() {
-    throw UnimplementedError();
+  Future<GoogleAuthenticationModel> getGoogleAuthentication() async {
+    var googleSignInAccount = await googleSignIn.signIn();
+    var googleSignInAuthentication = await googleSignInAccount!.authentication;
+
+    return GoogleAuthenticationModel(
+      idToken: googleSignInAuthentication.idToken!,
+      accessToken: googleSignInAuthentication.accessToken!,
+    );
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:fit_training_clean/app/core/stores/auth_store.dart';
 import 'package:fit_training_clean/app/modules/auth/presenter/pages/login/login_page.dart';
 import 'package:fit_training_clean/app/modules/auth/presenter/pages/login/login_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'modules/auth/data/repositories/login_repository_impl.dart';
 import 'modules/auth/data/services/connectivity_service_impl.dart';
@@ -19,13 +20,14 @@ class AppModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind((i) => FirebaseAuth.instance),
+        Bind((i) => GoogleSignIn()),
         Bind((i) => AuthStore(getLoggedUserUsecase: i(), logoutUsecase: i())),
         Bind((i) => LoginWithEmailUsecaseImpl(repository: i(), service: i())),
         Bind((i) => LoginWithGoogleUsecaseImpl(repository: i(), service: i())),
         Bind((i) => GetLoggedUserUsecaseImpl(repository: i())),
         Bind((i) => LogoutUsecaseImpl(repository: i())),
         Bind((i) => LoginRepositoryImpl(datasource: i())),
-        Bind((i) => FirebaseDatasourceImpl(auth: i())),
+        Bind((i) => FirebaseDatasourceImpl(auth: i(), googleSignIn: i())),
         Bind((i) => ConnectivityServiceImpl(driver: i())),
         Bind((i) => FlutterConnectivityDriver(connectivity: i())),
         Bind((i) => Connectivity()),
