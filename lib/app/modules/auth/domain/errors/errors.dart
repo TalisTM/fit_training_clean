@@ -20,6 +20,12 @@ class ErrorLoginEmail implements FailureUser {
   ErrorLoginEmail({this.message = ""});
 }
 
+class ErrorGetGoogleAuthentication implements FailureUser {
+  @override
+  String message;
+  ErrorGetGoogleAuthentication({this.message = ""});
+}
+
 class ErrorLoginGoogle implements FailureUser {
   @override
   String message;
