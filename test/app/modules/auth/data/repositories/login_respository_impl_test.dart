@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fit_training_clean/app/modules/auth/data/datasources/login_datasource.dart';
+import 'package:fit_training_clean/app/modules/auth/data/models/google_authentication_model.dart';
 import 'package:fit_training_clean/app/modules/auth/data/models/user_model.dart';
 import 'package:fit_training_clean/app/modules/auth/data/repositories/login_repository_impl.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
@@ -8,6 +9,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class LoginDatasourceMock extends Mock implements LoginDatasource {}
+
+final googleAuthenticationEntityMock = GoogleAuthenticationModel(
+  idToken: "idToken",
+  accessToken: "accessToken",
+);
 
 void main() {
   final userMock = UserModel(
@@ -85,6 +91,28 @@ void main() {
       var result = await repository.loginEmail(email: '', password: '');
 
       expect(result.leftMap((l) => l is ErrorLoginEmail), const Left(true));
+    });
+  });
+
+  group("GetGoogleAuthentication", () {
+    test("Deve retornar um GoogleAuthenticationEntity", () async {
+      when(
+        () => datasource.getGoogleAuthentication(),
+      ).thenAnswer((_) async => googleAuthenticationEntityMock);
+
+      var result = await repository.getGoogleAuthentication();
+
+      expect(result, Right(googleAuthenticationEntityMock));
+    });
+
+    test("Deve retornar um ErrorGoogleAuthentication", () async {
+      when(
+        () => datasource.getGoogleAuthentication(),
+      ).thenThrow(ErrorGetGoogleAuthentication());
+
+      var result = await repository.getGoogleAuthentication();
+
+      expect(result.leftMap((l) => l is ErrorGetGoogleAuthentication), const Left(true));
     });
   });
 

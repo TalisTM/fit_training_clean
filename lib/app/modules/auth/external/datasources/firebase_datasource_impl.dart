@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_training_clean/app/modules/auth/data/datasources/login_datasource.dart';
+import 'package:fit_training_clean/app/modules/auth/data/models/google_authentication_model.dart';
 import 'package:fit_training_clean/app/modules/auth/data/models/user_model.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 
@@ -35,6 +36,11 @@ class FirebaseDatasourceImpl implements LoginDatasource {
       restTimeInSeconds: 60,
       workouts: [],
     );
+  }
+
+  @override
+  Future<GoogleAuthenticationModel> getGoogleAuthentication() {
+    throw UnimplementedError();
   }
 
   @override

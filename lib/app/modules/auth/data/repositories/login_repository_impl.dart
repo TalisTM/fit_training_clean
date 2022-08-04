@@ -36,8 +36,13 @@ class LoginRepositoryImpl implements LoginRepository {
   }
 
   @override
-  Future<Either<FailureUser, GoogleAuthenticationEntity>> getGoogleAuthentication() {
-    throw UnimplementedError();
+  Future<Either<FailureUser, GoogleAuthenticationEntity>> getGoogleAuthentication() async {
+    try {
+      var googleAuthentication = await datasource.getGoogleAuthentication();
+      return Right(googleAuthentication);
+    } catch (e) {
+      return Left(ErrorGetGoogleAuthentication(message: "Error google authentication"));
+    }
   }
 
   @override
