@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/entities/google_authentication_entity.dart';
-import 'package:fit_training_clean/app/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 
 abstract class LoginRepository {

@@ -1,5 +1,5 @@
 import 'package:asuka/asuka.dart' as asuka;
-import 'package:fit_training_clean/app/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/get_logged_user_usecase.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/logout_usecase.dart';
 import 'package:flutter/material.dart';

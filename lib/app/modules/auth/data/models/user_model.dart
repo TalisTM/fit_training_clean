@@ -1,4 +1,4 @@
-import 'package:fit_training_clean/app/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/training/domain/entities/workout_entity.dart';
 
 class UserModel extends UserEntity {

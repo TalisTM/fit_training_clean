@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fit_training_clean/app/core/pages/splash_page.dart';
-import 'package:fit_training_clean/app/core/stores/auth_store.dart';
+import 'package:fit_training_clean/app/core/presenter/pages/splash_page.dart';
+import 'package:fit_training_clean/app/core/presenter/stores/auth_store.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/get_google_authentication_usecase.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/register_with_email_usecase.dart';
 import 'package:fit_training_clean/app/modules/auth/presenter/pages/login/login_page.dart';

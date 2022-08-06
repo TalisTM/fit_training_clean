@@ -1,4 +1,4 @@
-import 'package:fit_training_clean/app/core/stores/auth_store.dart';
+import 'package:fit_training_clean/app/core/presenter/stores/auth_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

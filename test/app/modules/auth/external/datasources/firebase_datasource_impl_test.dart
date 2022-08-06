@@ -1,8 +1,7 @@
-import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fit_training_clean/app/core/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/auth/data/datasources/login_datasource.dart';
 import 'package:fit_training_clean/app/modules/auth/data/models/google_authentication_model.dart';
-import 'package:fit_training_clean/app/modules/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 import 'package:fit_training_clean/app/modules/auth/external/datasources/firebase_datasource_impl.dart';
 import 'package:flutter_test/flutter_test.dart';

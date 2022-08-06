@@ -1,4 +1,4 @@
-import 'package:fit_training_clean/app/core/stores/auth_store.dart';
+import 'package:fit_training_clean/app/core/presenter/stores/auth_store.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/register_with_email_usecase.dart';
 import 'package:flutter/material.dart';
