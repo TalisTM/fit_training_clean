@@ -33,7 +33,14 @@ class _LoginPageState extends State<LoginPage> {
             return TextButton(
                 onPressed: store.isValid ? store.enterEmail : null, child: const Text("Login"));
           }),
-          TextButton(onPressed: store.enterGoogle, child: const Text("Google"))
+          TextButton(
+            onPressed: () => Modular.to.pushNamed("/register"),
+            child: const Text("Novo? se cadastrar"),
+          ),
+          TextButton(
+            onPressed: store.enterGoogle,
+            child: const Text("Google"),
+          )
         ],
       ),
     );

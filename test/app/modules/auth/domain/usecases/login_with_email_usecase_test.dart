@@ -12,7 +12,7 @@ class LoginRepositoryMock extends Mock implements LoginRepository {}
 class ConnectivityServiceMock extends Mock implements ConnectivityService {}
 
 final UserEntity userEntityMock = UserEntity(name: "Talis", email: "talismarchioro@gmail.com", photoUrl: "", amountDone: 0, restTimeInSeconds: 60, workouts: []);
-late LoginCredentials loginCredentialsMock = LoginCredentials.withEmailAndPassword(email: "talismarchioro@gmail.com", password: "1234");
+late LoginCredentials loginCredentialsMock = LoginCredentials.withEmailAndPassword(email: "talismarchioro@gmail.com", password: "123456");
 
 void main() {
   
@@ -42,7 +42,7 @@ void main() {
     test("Deve retonar um ErrorLoginEmail", () async {
       List<String> inputEmail = ["", "fsdfsdfssdf", "talismarchioro", "@gmail.com", ".com"];
       for(String email in inputEmail) {
-        loginCredentialsMock = LoginCredentials.withEmailAndPassword(email: email, password: "1234");
+        loginCredentialsMock = LoginCredentials.withEmailAndPassword(email: email, password: "123456");
         var result = await usecase(loginCredentialsMock);
         expect(result.fold(id, id), isA<ErrorLoginEmail>());
       }

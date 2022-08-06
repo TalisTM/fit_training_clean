@@ -10,7 +10,7 @@ class LoginCredentials {
 
   bool get isValidEmail => validator.isEmail(email ?? "");
 
-  bool get isValidPassword => password != null && password!.isNotEmpty && password!.length > 3;
+  bool get isValidPassword => password != null && password!.isNotEmpty && password!.length >= 6;
 
   bool get isvalidIdToken => idToken != null && idToken!.isNotEmpty;
 

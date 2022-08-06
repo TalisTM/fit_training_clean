@@ -2,8 +2,12 @@ import 'package:connectivity/connectivity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_training_clean/app/core/pages/splash_page.dart';
 import 'package:fit_training_clean/app/core/stores/auth_store.dart';
+import 'package:fit_training_clean/app/modules/auth/domain/usecases/get_google_authentication_usecase.dart';
+import 'package:fit_training_clean/app/modules/auth/domain/usecases/register_with_email_usecase.dart';
 import 'package:fit_training_clean/app/modules/auth/presenter/pages/login/login_page.dart';
 import 'package:fit_training_clean/app/modules/auth/presenter/pages/login/login_store.dart';
+import 'package:fit_training_clean/app/modules/auth/presenter/pages/register/register_page.dart';
+import 'package:fit_training_clean/app/modules/auth/presenter/pages/register/register_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -22,7 +26,9 @@ class AppModule extends Module {
         Bind((i) => FirebaseAuth.instance),
         Bind((i) => GoogleSignIn()),
         Bind((i) => AuthStore(getLoggedUserUsecase: i(), logoutUsecase: i())),
+        Bind((i) => RegisterWithEmailUsecaseImpl(repository: i(), service: i())),
         Bind((i) => LoginWithEmailUsecaseImpl(repository: i(), service: i())),
+        Bind((i) => GetGoogleAuthenticationUsecaseImpl(repository: i())),
         Bind((i) => LoginWithGoogleUsecaseImpl(repository: i(), service: i())),
         Bind((i) => GetLoggedUserUsecaseImpl(repository: i())),
         Bind((i) => LogoutUsecaseImpl(repository: i())),
@@ -34,8 +40,13 @@ class AppModule extends Module {
         Bind((i) => LoginStore(
               loginWithEmailUsecase: i(),
               loginWithGoogleUsecase: i(),
+              getGoogleAuthenticationUsecase: i(),
               authStore: i(),
             )),
+        Bind((i) => RegisterStore(
+              authStore: i(),
+              registerWithEmailUsecase: i(),
+            ))
       ];
 
   // @override
@@ -48,6 +59,7 @@ class AppModule extends Module {
         ChildRoute("/", child: (_, __) => SplashPage()),
         // ModuleRoute("/login", module: AuthModule()),
         ChildRoute("/login", child: (_, __) => const LoginPage()),
+        ChildRoute("/register", child: (_, __) => const RegisterPage()),
         // ChildRoute("/home", child: (_, __) => HomePage())
       ];
 }

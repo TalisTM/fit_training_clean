@@ -37,7 +37,7 @@ void main() {
       );
 
       expect(
-        LoginCredentials.withEmailAndPassword(email: "talis@gmail.com", password: "1234").isValidPassword,
+        LoginCredentials.withEmailAndPassword(email: "talis@gmail.com", password: "123456").isValidPassword,
         equals(true)
       );
     });

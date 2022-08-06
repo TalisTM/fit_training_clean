@@ -22,7 +22,7 @@ final UserEntity userEntityMock = UserEntity(
 
 late LoginCredentials loginCredentialsMock = LoginCredentials.withEmailAndPassword(
   email: "talismarchioro@gmail.com",
-  password: "1234",
+  password: "123456",
 );
 
 void main() {
@@ -76,7 +76,7 @@ void main() {
       List<String> inputEmail = ["", "fsdfsdfssdf", "talismarchioro", "@gmail.com", ".com"];
       for (String email in inputEmail) {
         loginCredentialsMock =
-            LoginCredentials.withEmailAndPassword(email: email, password: "1234");
+            LoginCredentials.withEmailAndPassword(email: email, password: "123456");
         var result = await usecase(loginCredentialsMock);
         expect(result.fold(id, id), isA<ErrorRegisterEmail>());
       }
