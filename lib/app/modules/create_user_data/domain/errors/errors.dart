@@ -7,3 +7,9 @@ class ErrorCheckUserExists implements FailureCreateUser {
   String message;
   ErrorCheckUserExists({this.message = ""});
 }
+
+class ErrorSaveNewUser implements FailureCreateUser {
+  @override
+  String message;
+  ErrorSaveNewUser({this.message = ""});
+}

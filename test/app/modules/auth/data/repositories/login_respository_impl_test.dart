@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fit_training_clean/app/modules/auth/data/datasources/login_datasource.dart';
 import 'package:fit_training_clean/app/modules/auth/data/models/google_authentication_model.dart';
-import 'package:fit_training_clean/app/modules/auth/data/models/user_model.dart';
+import 'package:fit_training_clean/app/core/data/models/user_model.dart';
 import 'package:fit_training_clean/app/modules/auth/data/repositories/login_repository_impl.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/repositories/login_repository.dart';

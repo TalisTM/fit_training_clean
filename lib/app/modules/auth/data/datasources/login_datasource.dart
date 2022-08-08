@@ -1,5 +1,5 @@
 import 'package:fit_training_clean/app/modules/auth/data/models/google_authentication_model.dart';
-import 'package:fit_training_clean/app/modules/auth/data/models/user_model.dart';
+import 'package:fit_training_clean/app/core/data/models/user_model.dart';
 
 abstract class LoginDatasource {
   Future<UserModel> registerEmail({required String email, required String password});
