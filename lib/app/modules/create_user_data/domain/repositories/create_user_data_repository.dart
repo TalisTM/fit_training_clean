@@ -6,4 +6,6 @@ abstract class CreateUserDataRepository {
   Future<Either<FailureCreateUser, bool>> checkUserExists({required String userId});
 
   Future<Either<FailureCreateUser, Unit>> saveNewUser({required UserEntity user});
+
+  Future<Either<FailureCreateUser, UserEntity>> fetchExistingUser({required String userId});
 }

@@ -13,3 +13,9 @@ class ErrorSaveNewUser implements FailureCreateUser {
   String message;
   ErrorSaveNewUser({this.message = ""});
 }
+
+class ErrorFetchExistingUser implements FailureCreateUser {
+  @override
+  String message;
+  ErrorFetchExistingUser({this.message = ""});
+}

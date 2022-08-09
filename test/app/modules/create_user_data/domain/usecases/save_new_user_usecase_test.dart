@@ -9,12 +9,13 @@ import 'package:mocktail/mocktail.dart';
 class CreateUserDataRepositoryMock extends Mock implements CreateUserDataRepository {}
 
 final userEntityMock = UserEntity(
-    name: "name",
-    email: "email",
-    photoUrl: "photoUrl",
-    amountDone: 0,
-    restTimeInSeconds: 30,
-    workouts: []);
+  name: "name",
+  email: "email",
+  photoUrl: "photoUrl",
+  amountDone: 0,
+  restTimeInSeconds: 30,
+  workouts: [],
+);
 
 void main() {
   late CreateUserDataRepository repository;
@@ -28,7 +29,7 @@ void main() {
   });
 
   group("Quando o SaveNewUserUsecase for chamado,", () {
-    test("Deve retornar um UserModel", () async {
+    test("Deve retornar sucesso", () async {
       when(
         () => repository.saveNewUser(user: any(named: "user")),
       ).thenAnswer((_) async => const Right(unit));
