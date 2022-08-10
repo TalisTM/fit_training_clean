@@ -58,6 +58,7 @@ void main() {
     googleSignInAccount = GoogleSignInAccountMock();
     googleSignInAuthentication = GoogleSignInAuthenticationMock();
 
+    when(() => firebaseUserMock.uid).thenReturn("1234");
     when(() => firebaseUserMock.displayName).thenReturn("Talis");
     when(() => firebaseUserMock.email).thenReturn("talismarchioro@gmail.com");
     when(() => firebaseUserMock.photoURL).thenReturn("");
