@@ -17,6 +17,7 @@ final googleAuthenticationEntityMock = GoogleAuthenticationModel(
 
 void main() {
   final userMock = UserModel(
+    uid: "1234",
     name: "Talis",
     email: "talis@gmail.com",
     photoUrl: "photoUrl",

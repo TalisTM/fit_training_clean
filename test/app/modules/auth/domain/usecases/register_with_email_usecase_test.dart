@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:fit_training_clean/app/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/core/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/repositories/login_repository.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/services/conectivity_service.dart';
@@ -13,12 +13,14 @@ class LoginRepositoryMock extends Mock implements LoginRepository {}
 class ConnectivityServiceMock extends Mock implements ConnectivityService {}
 
 final UserEntity userEntityMock = UserEntity(
-    name: "Talis",
-    email: "talismarchioro@gmail.com",
-    photoUrl: "",
-    amountDone: 0,
-    restTimeInSeconds: 60,
-    workouts: []);
+  uid: "1234",
+  name: "Talis",
+  email: "talismarchioro@gmail.com",
+  photoUrl: "",
+  amountDone: 0,
+  restTimeInSeconds: 60,
+  workouts: [],
+);
 
 late LoginCredentials loginCredentialsMock = LoginCredentials.withEmailAndPassword(
   email: "talismarchioro@gmail.com",

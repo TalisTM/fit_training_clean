@@ -1,9 +1,10 @@
-import 'exercise_entity.dart';
+import 'package:fit_training_clean/app/core/data/models/exercise_model.dart';
+
 
 class WorkoutEntity {
   final String name;
   final String content;
-  final List<ExerciseEntity> exercises;
+  final List<ExerciseModel> exercises;
 
   WorkoutEntity({required this.name, required this.content, required this.exercises});
 }

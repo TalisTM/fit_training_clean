@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:fit_training_clean/app/core/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/errors/errors.dart';
@@ -8,10 +7,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class LoginRepositoryMock extends Mock implements LoginRepository {}
-final UserEntity userEntityMock = UserEntity(name: "Talis", email: "talismarchioro@gmail.com", photoUrl: "", amountDone: 0, restTimeInSeconds: 60, workouts: []);
+
+final UserEntity userEntityMock = UserEntity(
+  uid: "1234",
+  name: "Talis",
+  email: "talismarchioro@gmail.com",
+  photoUrl: "",
+  amountDone: 0,
+  restTimeInSeconds: 60,
+  workouts: [],
+);
 
 void main() {
-  
   late LoginRepository repository;
   late GetLoggedUserUsecase usecase;
 

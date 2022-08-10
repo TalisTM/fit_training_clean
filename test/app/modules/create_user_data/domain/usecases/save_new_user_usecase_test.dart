@@ -9,6 +9,7 @@ import 'package:mocktail/mocktail.dart';
 class CreateUserDataRepositoryMock extends Mock implements CreateUserDataRepository {}
 
 final userEntityMock = UserEntity(
+  uid: "1234",
   name: "name",
   email: "email",
   photoUrl: "photoUrl",

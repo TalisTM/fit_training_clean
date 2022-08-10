@@ -16,7 +16,8 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     var user = result.user;
 
     return UserModel(
-      name: user!.displayName ?? "",
+      uid: user!.uid,
+      name: user.displayName ?? "",
       email: user.email ?? "",
       photoUrl: user.photoURL ?? "",
       amountDone: 0,
@@ -31,7 +32,8 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     var user = result.user;
 
     return UserModel(
-      name: user!.displayName ?? "",
+      uid: user!.uid,
+      name: user.displayName ?? "",
       email: user.email ?? "",
       photoUrl: user.photoURL ?? "",
       amountDone: 0,
@@ -62,7 +64,8 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     var user = result.user;
 
     return UserModel(
-      name: user!.displayName ?? "",
+      uid: user!.uid,
+      name: user.displayName ?? "",
       email: user.email ?? "",
       photoUrl: user.photoURL ?? "",
       amountDone: 0,
@@ -78,6 +81,7 @@ class FirebaseDatasourceImpl implements LoginDatasource {
     if (user == null) throw ErrorGetLoggedUser();
 
     return UserModel(
+      uid: user.uid,
       name: user.displayName ?? "",
       email: user.email ?? "",
       photoUrl: user.photoURL ?? "",

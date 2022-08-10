@@ -11,6 +11,7 @@ import 'package:mocktail/mocktail.dart';
 class CreateUserDataDatasouceMock extends Mock implements CreateUserDataDatasouce {}
 
 final userModelMock = UserModel(
+  uid: "1234",
   name: "name",
   email: "email",
   photoUrl: "photoUrl",
@@ -20,6 +21,7 @@ final userModelMock = UserModel(
 );
 
 final userEntityMock = UserEntity(
+  uid: "1234",
   name: "name",
   email: "email",
   photoUrl: "photoUrl",

@@ -23,6 +23,7 @@ class CreateUserDataRepositoryImpl implements CreateUserDataRepository {
   Future<Either<FailureCreateUser, Unit>> saveNewUser({required UserEntity user}) async {
     try {
       UserModel userModel = UserModel(
+        uid: user.uid,
         name: user.name,
         email: user.email,
         photoUrl: user.photoUrl,

@@ -21,6 +21,7 @@ class GoogleSignInAccountMock extends Mock implements GoogleSignInAccount {}
 class GoogleSignInAuthenticationMock extends Mock implements GoogleSignInAuthentication {}
 
 final userMock = UserEntity(
+  uid: "1234",
   name: "Talis",
   email: "talismarchioro@gmail.com",
   photoUrl: "",

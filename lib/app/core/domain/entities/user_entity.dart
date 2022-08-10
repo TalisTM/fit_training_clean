@@ -1,13 +1,22 @@
-import 'package:fit_training_clean/app/modules/training/domain/entities/workout_entity.dart';
+
+import 'package:fit_training_clean/app/core/data/models/workout_model.dart';
 
 class UserEntity {
+  final String uid;
   final String name;
   final String email;
   final String photoUrl;
   final int amountDone;
   final int restTimeInSeconds;
-  final List<WorkoutEntity> workouts;
+  final List<WorkoutModel> workouts;
 
-  UserEntity({required this.name, required this.email, required this.photoUrl, required this.amountDone, required this.restTimeInSeconds, required this.workouts});
-
+  UserEntity({
+    required this.uid,
+    required this.name,
+    required this.email,
+    required this.photoUrl,
+    required this.amountDone,
+    required this.restTimeInSeconds,
+    required this.workouts,
+  });
 }
