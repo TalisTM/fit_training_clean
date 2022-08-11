@@ -35,7 +35,7 @@ void main() {
         () => repository.saveNewUser(user: any(named: "user")),
       ).thenAnswer((_) async => const Right(unit));
 
-      var result = await usecase(userEntityMock);
+      var result = await usecase(user: userEntityMock);
 
       expect(result, isA<Right<dynamic, Unit>>());
     });
@@ -45,7 +45,7 @@ void main() {
         () => repository.saveNewUser(user: any(named: "user")),
       ).thenAnswer((_) async => Left(ErrorSaveNewUser()));
 
-      var result = await usecase(userEntityMock);
+      var result = await usecase(user: userEntityMock);
 
       expect(result.leftMap((l) => l is ErrorSaveNewUser), const Left(true));
     });

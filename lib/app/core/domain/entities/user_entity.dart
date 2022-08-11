@@ -1,5 +1,5 @@
 
-import 'package:fit_training_clean/app/core/data/models/workout_model.dart';
+import 'package:fit_training_clean/app/core/domain/entities/workout_entity.dart';
 
 class UserEntity {
   final String uid;
@@ -8,7 +8,7 @@ class UserEntity {
   final String photoUrl;
   final int amountDone;
   final int restTimeInSeconds;
-  final List<WorkoutModel> workouts;
+  final List<WorkoutEntity> workouts;
 
   UserEntity({
     required this.uid,

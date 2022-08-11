@@ -4,6 +4,9 @@ import 'package:fit_training_clean/app/modules/auth/domain/entities/login_creden
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/get_google_authentication_usecase.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/login_with_email_usecase.dart';
 import 'package:fit_training_clean/app/modules/auth/domain/usecases/login_with_google_usecase.dart';
+import 'package:fit_training_clean/app/modules/create_user_data/domain/usecases/check_user_exists_usecase.dart';
+import 'package:fit_training_clean/app/modules/create_user_data/domain/usecases/fetch_existing_user_usecase.dart';
+import 'package:fit_training_clean/app/modules/create_user_data/domain/usecases/save_new_user_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -16,12 +19,18 @@ abstract class _LoginStoreBase with Store {
   final LoginWithEmailUsecase loginWithEmailUsecase;
   final LoginWithGoogleUsecase loginWithGoogleUsecase;
   final GetGoogleAuthenticationUsecase getGoogleAuthenticationUsecase;
+  final CheckUserExistsUsecase checkUserExistsUsecase;
+  final SaveNewUserUsecase saveNewUserUsecase;
+  final FetchExistingUserUsecase fetchExistingUserUsecase;
   final AuthStore authStore;
 
   _LoginStoreBase({
     required this.loginWithEmailUsecase,
     required this.loginWithGoogleUsecase,
     required this.getGoogleAuthenticationUsecase,
+    required this.checkUserExistsUsecase,
+    required this.saveNewUserUsecase,
+    required this.fetchExistingUserUsecase,
     required this.authStore,
   });
 
@@ -46,18 +55,39 @@ abstract class _LoginStoreBase with Store {
   @computed
   bool get isValid => credential.isValidEmail && credential.isValidPassword;
 
+  void _showError(var failure) {
+    asuka.showSnackBar(SnackBar(content: Text(failure.message)));
+  }
+
   Future<void> enterEmail() async {
     // loading on
-    var result = await loginWithEmailUsecase(credential);
-    //loading off
-    result.fold(
-      (faulure) => asuka.showSnackBar(SnackBar(content: Text(faulure.message))),
-      (user) {
-        authStore.setUser(user);
-        Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
-        Modular.to.pop();
+    var loginWithEmail = await loginWithEmailUsecase(credential);
+
+    loginWithEmail.fold(
+      (failure) => _showError(failure),
+      (user) async {
+        var checkUserExists = await checkUserExistsUsecase(userId: user.uid);
+
+        checkUserExists.fold(
+          (failure) => _showError(failure),
+          (exists) async {
+            if (!exists) {
+              var saveNewUser = await saveNewUserUsecase(user: user);
+
+              saveNewUser.fold(
+                (failure) => _showError(failure),
+                (_) {
+                  authStore.setUser(user);
+                  Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
+                  Modular.to.pop();
+                },
+              );
+            }
+          },
+        );
       },
     );
+    //loading off
   }
 
   Future<void> enterGoogle() async {

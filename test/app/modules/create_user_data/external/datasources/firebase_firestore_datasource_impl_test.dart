@@ -7,13 +7,13 @@ import 'package:mocktail/mocktail.dart';
 class FirebaseFirestoreMock extends Mock implements FirebaseFirestore {}
 
 void main() {
-  FirebaseFirestore instance;
+  FirebaseFirestore firestore;
   // ignore: unused_local_variable
   CreateUserDataDatasouce datasouce;
 
   setUp(() {
-    instance = FirebaseFirestoreMock();
-    datasouce = FirebaseFirestoreDatasourceImpl(instance: instance);
+    firestore = FirebaseFirestoreMock();
+    datasouce = FirebaseFirestoreDatasourceImpl(firestore: firestore);
   });
 
   group("Quando o datasource.checkUserExists() for chamado,", () {

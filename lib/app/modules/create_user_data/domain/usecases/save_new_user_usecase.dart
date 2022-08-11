@@ -4,7 +4,7 @@ import 'package:fit_training_clean/app/modules/create_user_data/domain/errors/er
 import 'package:fit_training_clean/app/modules/create_user_data/domain/repositories/create_user_data_repository.dart';
 
 abstract class SaveNewUserUsecase {
-  Future<Either<FailureCreateUser, Unit>> call(UserEntity user);
+  Future<Either<FailureCreateUser, Unit>> call({required UserEntity user});
 }
 
 class SaveNewUserUsecaseImpl implements SaveNewUserUsecase {
@@ -12,7 +12,7 @@ class SaveNewUserUsecaseImpl implements SaveNewUserUsecase {
   SaveNewUserUsecaseImpl({required this.repository});
 
   @override
-  Future<Either<FailureCreateUser, Unit>> call(UserEntity user) async {
+  Future<Either<FailureCreateUser, Unit>> call({required UserEntity user}) async {
     var result = await repository.saveNewUser(user: user);
 
     return result;
