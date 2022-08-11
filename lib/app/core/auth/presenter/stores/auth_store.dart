@@ -26,13 +26,16 @@ abstract class _AuthStoreBase with Store {
   Future<bool> checkLogin() async {
     var result = await getLoggedUserUsecase();
 
-    return result.fold((l) => false, (user) {
-      setUser(user);
-      return true;
-    });
+    return result.fold(
+      (l) => false,
+      (user) {
+        setUser(user);
+        return true;
+      },
+    );
   }
 
-  Future<void> singOut() async {
+  Future<void> logout() async {
     var result = await logoutUsecase();
 
     result.fold(
