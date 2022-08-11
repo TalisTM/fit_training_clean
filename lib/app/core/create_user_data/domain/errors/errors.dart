@@ -1,8 +1,8 @@
-abstract class FailureCreateUser {
+abstract class FailureCreateUserData {
   String get message;
 }
 
-class ErrorCreateUserData implements FailureCreateUser {
+class ErrorCreateUserData implements FailureCreateUserData {
   @override
   String message;
   ErrorCreateUserData({this.message = ""});

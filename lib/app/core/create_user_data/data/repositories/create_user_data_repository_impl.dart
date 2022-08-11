@@ -10,7 +10,7 @@ class CreateUserDataRepositoryImpl implements CreateUserDataRepository {
   CreateUserDataRepositoryImpl({required this.datasouce});
 
   @override
-  Future<Either<FailureCreateUser, UserEntity>> createUserData({required UserEntity user}) async {
+  Future<Either<FailureCreateUserData, UserEntity>> createUserData({required UserEntity user}) async {
     try {
       UserModel userModel = UserModel(
         uid: user.uid,
