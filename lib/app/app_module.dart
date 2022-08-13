@@ -9,17 +9,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 class AppModule extends Module {
   @override
   List<Bind<Object>> get binds => [
-        //CORE
         Bind((i) => FirebaseAuth.instance),
         Bind((i) => FirebaseFirestore.instance),
-
-        //CORE CREATE_USER_DATA
-
-        //CORE AUTH
-
-        //REGISTER
-
-        //LOGIN
       ];
 
   @override
