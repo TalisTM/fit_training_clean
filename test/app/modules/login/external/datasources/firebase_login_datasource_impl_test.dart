@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fit_training_clean/app/core/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/modules/login/data/datasources/login_datasource.dart';
 import 'package:fit_training_clean/app/modules/login/external/datasources/firebase_login_datasource_impl.dart';
 import 'package:flutter_test/flutter_test.dart';

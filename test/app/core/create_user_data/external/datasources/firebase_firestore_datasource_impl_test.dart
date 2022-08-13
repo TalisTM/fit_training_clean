@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fit_training_clean/app/core/create_user_data/data/datasources/create_user_data_datasource.dart';
-import 'package:fit_training_clean/app/core/create_user_data/external/datasources/firebase_firestore_datasource_impl.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/data/datasources/create_user_data_datasource.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/external/datasources/firebase_firestore_datasource_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

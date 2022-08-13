@@ -1,8 +1,9 @@
 import 'package:asuka/asuka.dart' as asuka;
-import 'package:fit_training_clean/app/core/auth/domain/entities/user_entity.dart';
-import 'package:fit_training_clean/app/core/auth/presenter/stores/auth_store.dart';
-import 'package:fit_training_clean/app/core/create_user_data/domain/usecases/create_user_data_usecase.dart';
-import 'package:fit_training_clean/app/core/auth/domain/entities/login_credentials.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/login_credentials.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_store.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/domain/usecases/create_user_data_usecase.dart';
+import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_email_usecase.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_google_usecase.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,9 @@ abstract class _LoginStoreBase with Store {
   @observable
   String email = "";
 
+  @observable
+  Status registerEmailStatus = Status.initial;
+
   @action
   setEmail(String value) => email = value;
 
@@ -51,13 +55,13 @@ abstract class _LoginStoreBase with Store {
     asuka.showSnackBar(SnackBar(content: Text(failure.message)));
   }
 
-  Future<void> enterEmail() async {
+  Future<void> onEnterEmail() async {
     // loading on
     var loginWithEmail = await loginWithEmailUsecase(credential);
 
     loginWithEmail.fold(
-      (failure) => _showError,
-      (user) => saveUserData
+      (failure) => _showError(failure),
+      (user) => saveUserData(user),
     );
     //loading off
   }
@@ -66,8 +70,8 @@ abstract class _LoginStoreBase with Store {
     var result = await loginWithGoogleUsecase();
 
     result.fold(
-      (failure) => _showError,
-      (user) => saveUserData
+      (failure) => _showError(failure),
+      (user) => saveUserData(user),
     );
   }
 
@@ -75,7 +79,7 @@ abstract class _LoginStoreBase with Store {
     var result = await createUserDataUsecase(user: user);
 
     result.fold(
-      (failure) => _showError,
+      (failure) => _showError(failure),
       (savedUser) {
         authStore.setUser(savedUser);
         Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));

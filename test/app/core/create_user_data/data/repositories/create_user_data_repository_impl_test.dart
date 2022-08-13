@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:fit_training_clean/app/core/auth/data/models/user_model.dart';
-import 'package:fit_training_clean/app/core/auth/domain/entities/user_entity.dart';
-import 'package:fit_training_clean/app/core/create_user_data/data/datasources/create_user_data_datasource.dart';
-import 'package:fit_training_clean/app/core/create_user_data/data/repositories/create_user_data_repository_impl.dart';
-import 'package:fit_training_clean/app/core/create_user_data/domain/errors/errors.dart';
-import 'package:fit_training_clean/app/core/create_user_data/domain/repositories/create_user_data_repository.dart';
+import 'package:fit_training_clean/app/core/modules/auth/data/models/user_model.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/data/datasources/create_user_data_datasource.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/data/repositories/create_user_data_repository_impl.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/domain/errors/errors.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/domain/repositories/create_user_data_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

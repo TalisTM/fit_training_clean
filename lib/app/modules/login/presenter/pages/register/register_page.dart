@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           Observer(builder: (context) {
             return TextButton(
-              onPressed: store.isValid ? store.registerEmail : null,
+              onPressed: store.isValid ? store.onRegisterEmail : null,
               child: const Text("Cadastrar"),
             );
           }),

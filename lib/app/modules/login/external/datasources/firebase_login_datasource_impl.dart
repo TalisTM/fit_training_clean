@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fit_training_clean/app/core/auth/data/models/user_model.dart';
+import 'package:fit_training_clean/app/core/modules/auth/data/models/user_model.dart';
 import 'package:fit_training_clean/app/modules/login/data/datasources/login_datasource.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -7,7 +7,7 @@ class FirebaseLoginDatasourceImpl implements LoginDatasource {
   final FirebaseAuth auth;
   final GoogleSignIn googleSignIn;
   FirebaseLoginDatasourceImpl({required this.auth, required this.googleSignIn});
-  
+
   @override
   Future<UserModel> loginEmail({required String email, required String password}) async {
     var result = await auth.signInWithEmailAndPassword(email: email, password: password);

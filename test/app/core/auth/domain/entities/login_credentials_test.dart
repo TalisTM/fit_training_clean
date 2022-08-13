@@ -1,4 +1,4 @@
-import 'package:fit_training_clean/app/core/auth/domain/entities/login_credentials.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/login_credentials.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

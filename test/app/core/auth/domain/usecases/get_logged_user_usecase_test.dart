@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:fit_training_clean/app/core/auth/domain/entities/user_entity.dart';
-import 'package:fit_training_clean/app/core/auth/domain/errors/errors.dart';
-import 'package:fit_training_clean/app/core/auth/domain/repositories/auth_repository.dart';
-import 'package:fit_training_clean/app/core/auth/domain/usecases/get_logged_user_usecase.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/errors/errors.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/repositories/auth_repository.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/usecases/get_logged_user_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

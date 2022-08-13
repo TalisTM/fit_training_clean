@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fit_training_clean/app/core/auth/data/datasources/auth_datasource.dart';
-import 'package:fit_training_clean/app/core/auth/domain/entities/user_entity.dart';
-import 'package:fit_training_clean/app/core/auth/domain/errors/errors.dart';
-import 'package:fit_training_clean/app/core/auth/external/datasources/firebase_auth_datasource_impl.dart';
+import 'package:fit_training_clean/app/core/modules/auth/data/datasources/auth_datasource.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/errors/errors.dart';
+import 'package:fit_training_clean/app/core/modules/auth/external/datasources/firebase_auth_datasource_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -45,7 +45,7 @@ void main() {
     when(() => firebaseUserMock.photoURL).thenReturn("");
     when(() => userCredentialMock.user).thenReturn(firebaseUserMock);
   });
-  
+
   test("Deve retornar um UserEntity via loggedUser", () async {
     when(() => auth.currentUser).thenAnswer((_) => firebaseUserMock);
 

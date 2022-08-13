@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fit_training_clean/app/core/auth/data/models/user_model.dart';
+import 'package:fit_training_clean/app/core/modules/auth/data/models/user_model.dart';
 import 'package:fit_training_clean/app/modules/login/data/datasources/login_datasource.dart';
 import 'package:fit_training_clean/app/modules/login/data/repositories/login_repository_impl.dart';
 import 'package:fit_training_clean/app/modules/login/domain/errors/errors.dart';

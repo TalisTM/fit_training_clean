@@ -1,9 +1,9 @@
 import 'package:asuka/asuka.dart' as asuka;
-import 'package:fit_training_clean/app/core/auth/domain/entities/user_entity.dart';
-import 'package:fit_training_clean/app/core/auth/presenter/stores/auth_store.dart';
-import 'package:fit_training_clean/app/core/auth/domain/entities/login_credentials.dart';
-import 'package:fit_training_clean/app/core/create_user_data/domain/usecases/create_user_data_usecase.dart';
-import 'package:fit_training_clean/app/core/register/domain/usecases/register_with_email_usecase.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/login_credentials.dart';
+import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_store.dart';
+import 'package:fit_training_clean/app/core/modules/create_user_data/domain/usecases/create_user_data_usecase.dart';
+import 'package:fit_training_clean/app/modules/register/domain/usecases/register_with_email_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -48,13 +48,13 @@ abstract class _RegisterStoreBase with Store {
     asuka.showSnackBar(SnackBar(content: Text(failure.message)));
   }
 
-  registerEmail() async {
+  Future<void> onRegisterEmail() async {
     // loading on
     var result = await registerWithEmailUsecase(credential);
     //loading off
     result.fold(
-      (faulure) => _showError,
-      (user) async => saveUserData,
+      (faulure) => _showError(faulure),
+      (user) async => saveUserData(user),
     );
   }
 
@@ -63,7 +63,7 @@ abstract class _RegisterStoreBase with Store {
     var result = await createUserDataUsecase(user: user);
 
     result.fold(
-      (failure) => _showError,
+      (failure) => _showError(failure),
       (savedUser) {
         authStore.setUser(savedUser);
         Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
