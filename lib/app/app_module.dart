@@ -1,15 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fit_training_clean/app/core/auth/data/repositories/auth_repository_impl.dart';
+import 'package:fit_training_clean/app/core/auth/external/datasources/firebase_auth_datasource_impl.dart';
 import 'package:fit_training_clean/app/core/auth/presenter/pages/splash_page.dart';
 import 'package:fit_training_clean/app/core/auth/presenter/stores/auth_store.dart';
 import 'package:fit_training_clean/app/core/create_user_data/data/repositories/create_user_data_repository_impl.dart';
 import 'package:fit_training_clean/app/core/create_user_data/domain/usecases/create_user_data_usecase.dart';
 import 'package:fit_training_clean/app/core/create_user_data/external/datasources/firebase_firestore_datasource_impl.dart';
+import 'package:fit_training_clean/app/core/register/data/repositories/register_repository_impl.dart';
 import 'package:fit_training_clean/app/core/register/domain/usecases/register_with_email_usecase.dart';
+import 'package:fit_training_clean/app/core/register/external/datasources/firebase_register_datasource_impl.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/login/login_page.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/login/login_store.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/register/register_page.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/register/register_store.dart';
+import 'package:fit_training_clean/app/modules/training/presenter/pages/home_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -38,17 +43,20 @@ class AppModule extends Module {
         Bind((i) => GetLoggedUserUsecaseImpl(repository: i())),
         Bind((i) => LogoutUsecaseImpl(repository: i())),
 
-        ///[Auth Repository com os dois usecase acima]
+        Bind((i) => AuthRepositoryImpl(datasource: i())),
+        Bind((i) => FirebaseAuthDatasourceImpl(auth: i())),
 
         Bind((i) => AuthStore(getLoggedUserUsecase: i(), logoutUsecase: i())),
 
         //REGISTER
         Bind((i) => RegisterWithEmailUsecaseImpl(repository: i())),
 
-        ///[Register Repository com o usecase acima]
+        Bind((i) => RegisterRepositoryImpl(datasource: i())),
+        Bind((i) => FirebaseRegisterDatasourceImpl(auth: i())),
 
         Bind((i) => RegisterStore(
               authStore: i(),
+              createUserDataUsecase: i(),
               registerWithEmailUsecase: i(),
             )),
 
@@ -80,6 +88,7 @@ class AppModule extends Module {
         // ModuleRoute("/login", module: AuthModule()),
         ChildRoute("/login", child: (_, __) => const LoginPage()),
         ChildRoute("/register", child: (_, __) => const RegisterPage()),
-        // ChildRoute("/home", child: (_, __) => HomePage())
+
+        ChildRoute("/home", child: (_, __) => const HomePage())
       ];
 }

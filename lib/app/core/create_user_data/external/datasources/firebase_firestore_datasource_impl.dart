@@ -8,6 +8,8 @@ class FirebaseFirestoreDatasourceImpl implements CreateUserDataDatasouce {
 
   @override
   Future<UserModel> createUserData({required UserModel user}) async {
+    print("aquiiii");
+    print(user.email);
     //Buscar a lista de usuarios salvo no banco
     var listUser = await firestore.collection("user").get();
     //rodando a lista de usuarios do banco

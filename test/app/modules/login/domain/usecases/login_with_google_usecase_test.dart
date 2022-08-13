@@ -38,7 +38,7 @@ void main() {
 
   group("Quando o usecase for chamado,", () {
     test("Deve retornar um UserEntity", () async {
-      var result = await usecase(loginCredentialsMock);
+      var result = await usecase();
 
       expect(result, Right(userEntityMock));
 

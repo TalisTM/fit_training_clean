@@ -1,6 +1,8 @@
 import 'package:asuka/asuka.dart' as asuka;
+import 'package:fit_training_clean/app/core/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/core/auth/presenter/stores/auth_store.dart';
 import 'package:fit_training_clean/app/core/auth/domain/entities/login_credentials.dart';
+import 'package:fit_training_clean/app/core/create_user_data/domain/usecases/create_user_data_usecase.dart';
 import 'package:fit_training_clean/app/core/register/domain/usecases/register_with_email_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,10 +14,12 @@ class RegisterStore = _RegisterStoreBase with _$RegisterStore;
 
 abstract class _RegisterStoreBase with Store {
   final RegisterWithEmailUsecase registerWithEmailUsecase;
+  final CreateUserDataUsecase createUserDataUsecase;
   final AuthStore authStore;
 
   _RegisterStoreBase({
     required this.registerWithEmailUsecase,
+    required this.createUserDataUsecase,
     required this.authStore,
   });
 
@@ -40,14 +44,28 @@ abstract class _RegisterStoreBase with Store {
   @computed
   bool get isValid => credential.isValidEmail && credential.isValidPassword;
 
+  void _showError(var failure) {
+    asuka.showSnackBar(SnackBar(content: Text(failure.message)));
+  }
+
   registerEmail() async {
     // loading on
     var result = await registerWithEmailUsecase(credential);
     //loading off
     result.fold(
-      (faulure) => asuka.showSnackBar(SnackBar(content: Text(faulure.message))),
-      (user) {
-        authStore.setUser(user);
+      (faulure) => _showError,
+      (user) async => saveUserData,
+    );
+  }
+
+  Future<void> saveUserData(UserEntity user) async {
+    print("testeee");
+    var result = await createUserDataUsecase(user: user);
+
+    result.fold(
+      (failure) => _showError,
+      (savedUser) {
+        authStore.setUser(savedUser);
         Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
         Modular.to.pop();
       },
