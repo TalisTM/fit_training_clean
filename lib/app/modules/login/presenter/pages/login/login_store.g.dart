@@ -39,6 +39,22 @@ mixin _$LoginStore on _LoginStoreBase, Store {
     });
   }
 
+  late final _$registerEmailStatusAtom =
+      Atom(name: '_LoginStoreBase.registerEmailStatus', context: context);
+
+  @override
+  Status get registerEmailStatus {
+    _$registerEmailStatusAtom.reportRead();
+    return super.registerEmailStatus;
+  }
+
+  @override
+  set registerEmailStatus(Status value) {
+    _$registerEmailStatusAtom.reportWrite(value, super.registerEmailStatus, () {
+      super.registerEmailStatus = value;
+    });
+  }
+
   late final _$passwordAtom =
       Atom(name: '_LoginStoreBase.password', context: context);
 
@@ -84,6 +100,7 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   String toString() {
     return '''
 email: ${email},
+registerEmailStatus: ${registerEmailStatus},
 password: ${password},
 credential: ${credential},
 isValid: ${isValid}

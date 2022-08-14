@@ -31,7 +31,9 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Observer(builder: (context) {
             return TextButton(
-                onPressed: store.isValid ? store.onEnterEmail : null, child: const Text("Login"));
+              onPressed: store.isValid ? store.onEnterEmail : null,
+              child: const Text("Login"),
+            );
           }),
           TextButton(
             onPressed: () => Modular.to.pushNamed("/register"),

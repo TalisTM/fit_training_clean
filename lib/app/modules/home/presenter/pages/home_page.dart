@@ -1,4 +1,4 @@
-import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_store.dart';
+import 'package:fit_training_clean/app/modules/home/presenter/pages/home_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  AuthStore store = Modular.get<AuthStore>();
+  HomeStore store = Modular.get<HomeStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           TextButton(
-            onPressed: () {
-              store.logout();
-              Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
-              Modular.to.pop();
-            },
+            onPressed: store.onLogout,
             child: const Text("deslogar"),
           )
         ],
