@@ -1,8 +1,6 @@
-import 'package:asuka/asuka.dart' as asuka;
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/usecases/get_logged_user_usecase.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/usecases/logout_usecase.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 part 'auth_store.g.dart';
@@ -39,7 +37,7 @@ abstract class _AuthStoreBase with Store {
     var result = await logoutUsecase();
 
     result.fold(
-      (l) => asuka.showSnackBar(SnackBar(content: Text(l.message))),
+      (l) => "",//asuka.showSnackBar(SnackBar(content: Text(l.message))),
       (r) => setUser(null),
     );
   }

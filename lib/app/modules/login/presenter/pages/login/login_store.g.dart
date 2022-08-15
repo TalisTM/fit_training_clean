@@ -39,22 +39,6 @@ mixin _$LoginStore on _LoginStoreBase, Store {
     });
   }
 
-  late final _$registerEmailStatusAtom =
-      Atom(name: '_LoginStoreBase.registerEmailStatus', context: context);
-
-  @override
-  Status get registerEmailStatus {
-    _$registerEmailStatusAtom.reportRead();
-    return super.registerEmailStatus;
-  }
-
-  @override
-  set registerEmailStatus(Status value) {
-    _$registerEmailStatusAtom.reportWrite(value, super.registerEmailStatus, () {
-      super.registerEmailStatus = value;
-    });
-  }
-
   late final _$passwordAtom =
       Atom(name: '_LoginStoreBase.password', context: context);
 
@@ -68,6 +52,38 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   set password(String value) {
     _$passwordAtom.reportWrite(value, super.password, () {
       super.password = value;
+    });
+  }
+
+  late final _$statusAtom =
+      Atom(name: '_LoginStoreBase.status', context: context);
+
+  @override
+  Status get status {
+    _$statusAtom.reportRead();
+    return super.status;
+  }
+
+  @override
+  set status(Status value) {
+    _$statusAtom.reportWrite(value, super.status, () {
+      super.status = value;
+    });
+  }
+
+  late final _$failureTextAtom =
+      Atom(name: '_LoginStoreBase.failureText', context: context);
+
+  @override
+  String? get failureText {
+    _$failureTextAtom.reportRead();
+    return super.failureText;
+  }
+
+  @override
+  set failureText(String? value) {
+    _$failureTextAtom.reportWrite(value, super.failureText, () {
+      super.failureText = value;
     });
   }
 
@@ -97,11 +113,34 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   }
 
   @override
+  dynamic setStatus(Status value) {
+    final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
+        name: '_LoginStoreBase.setStatus');
+    try {
+      return super.setStatus(value);
+    } finally {
+      _$_LoginStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setFailureText(String value) {
+    final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
+        name: '_LoginStoreBase.setFailureText');
+    try {
+      return super.setFailureText(value);
+    } finally {
+      _$_LoginStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 email: ${email},
-registerEmailStatus: ${registerEmailStatus},
 password: ${password},
+status: ${status},
+failureText: ${failureText},
 credential: ${credential},
 isValid: ${isValid}
     ''';

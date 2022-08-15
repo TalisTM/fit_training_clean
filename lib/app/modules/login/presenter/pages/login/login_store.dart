@@ -1,4 +1,3 @@
-import 'package:asuka/asuka.dart' as asuka;
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_store.dart';
@@ -29,18 +28,26 @@ abstract class _LoginStoreBase with Store {
 
   @observable
   String email = "";
-
-  @observable
-  Status registerEmailStatus = Status.initial;
-
   @action
   setEmail(String value) => email = value;
 
   @observable
   String password = "";
-
   @action
   setPassword(String value) => password = value;
+
+  @observable
+  Status status = Status.initial;
+  @action
+  setStatus(Status value) => status = value;
+
+  @observable
+  String? failureText;
+  @action
+  setFailureText(String value) {
+    setStatus(Status.failure);
+    failureText = value;
+  }
 
   @computed
   LoginCredentials get credential => LoginCredentials.withEmailAndPassword(
@@ -51,26 +58,21 @@ abstract class _LoginStoreBase with Store {
   @computed
   bool get isValid => credential.isValidEmail && credential.isValidPassword;
 
-  void _showError(var failure) {
-    asuka.showSnackBar(SnackBar(content: Text(failure.message)));
-  }
-
   Future<void> onEnterEmail() async {
-    // loading on
+    setStatus(Status.loading);
     var loginWithEmail = await loginWithEmailUsecase(credential);
 
     loginWithEmail.fold(
-      (failure) => _showError(failure),
-      (user) => saveUserData(user),
+      (failure) => setFailureText(failure.message),
+      (user) async => await saveUserData(user),
     );
-    //loading off
   }
 
   Future<void> enterGoogle() async {
     var result = await loginWithGoogleUsecase();
 
     result.fold(
-      (failure) => _showError(failure),
+      (failure) => setFailureText(failure.message),
       (user) => saveUserData(user),
     );
   }
@@ -79,7 +81,7 @@ abstract class _LoginStoreBase with Store {
     var result = await createUserDataUsecase(user: user);
 
     result.fold(
-      (failure) => _showError(failure),
+      (failure) => setFailureText(failure.message),
       (savedUser) {
         authStore.setUser(savedUser);
         Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));

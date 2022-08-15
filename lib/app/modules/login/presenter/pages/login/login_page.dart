@@ -1,3 +1,4 @@
+import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/login/login_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -20,31 +21,51 @@ class _LoginPageState extends State<LoginPage> {
         title: const Text("Login"),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const Center(child: Icon(Icons.heart_broken, size: 30)),
-          TextField(
-            onChanged: store.setEmail,
-          ),
-          TextField(
-            onChanged: store.setPassword,
-          ),
-          Observer(builder: (context) {
-            return TextButton(
-              onPressed: store.isValid ? store.onEnterEmail : null,
-              child: const Text("Login"),
-            );
-          }),
-          TextButton(
-            onPressed: () => Modular.to.pushNamed("/register"),
-            child: const Text("Novo? se cadastrar"),
-          ),
-          TextButton(
-            onPressed: store.enterGoogle,
-            child: const Text("Google"),
-          )
-        ],
-      ),
+      body: Observer(builder: (context) {
+        if (store.status == Status.initial) {
+          return Column(
+            children: [
+              const Center(child: Icon(Icons.heart_broken, size: 30)),
+              TextField(
+                onChanged: store.setEmail,
+              ),
+              TextField(
+                onChanged: store.setPassword,
+              ),
+              TextButton(
+                onPressed: store.isValid ? store.onEnterEmail : null,
+                child: const Text("Login"),
+              ),
+              TextButton(
+                onPressed: () => Modular.to.pushNamed("/register"),
+                child: const Text("Novo? se cadastrar"),
+              ),
+              TextButton(
+                onPressed: store.enterGoogle,
+                child: const Text("Google"),
+              )
+            ],
+          );
+        } else if (store.status == Status.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (store.status == Status.failure) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text("Ocorreu um erro"),
+              Text(store.failureText!),
+              TextButton(
+                child: const Text("Ok"),
+                onPressed: () => store.setStatus(Status.initial),
+              )
+            ],
+          );
+        } else {
+          return Container();
+        }
+      }),
     );
   }
 }
