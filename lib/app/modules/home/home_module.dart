@@ -7,7 +7,7 @@ class HomeModule extends Module {
 
   @override
   List<Bind<Object>> get binds => [
-    Bind((i) => HomeStore(authStore: i()))
+    Bind((i) => HomeStore(authStore: i(), logoutUsecase: i()))
   ];
 
   @override

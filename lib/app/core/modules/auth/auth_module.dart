@@ -12,6 +12,6 @@ class AuthModule extends Module {
         Bind((i) => LogoutUsecaseImpl(repository: i()), export: true),
         Bind((i) => AuthRepositoryImpl(datasource: i()), export: true),
         Bind((i) => FirebaseAuthDatasourceImpl(auth: i()), export: true),
-        Bind((i) => AuthStore(getLoggedUserUsecase: i(), logoutUsecase: i()), export: true),
+        Bind((i) => AuthStore(), export: true),
       ];
 }
