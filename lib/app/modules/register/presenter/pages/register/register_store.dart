@@ -48,6 +48,11 @@ abstract class _RegisterStoreBase with Store {
   }
 
   @observable
+  bool hidePassword = true;
+  @action
+  setHidePassowrd(bool value) => hidePassword = value;
+
+  @observable
   Status status = Status.initial;
   @action
   setStatus(Status value) => status = value;

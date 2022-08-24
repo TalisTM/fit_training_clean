@@ -49,6 +49,22 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
     });
   }
 
+  late final _$hidePasswordAtom =
+      Atom(name: '_RegisterStoreBase.hidePassword', context: context);
+
+  @override
+  bool get hidePassword {
+    _$hidePasswordAtom.reportRead();
+    return super.hidePassword;
+  }
+
+  @override
+  set hidePassword(bool value) {
+    _$hidePasswordAtom.reportWrite(value, super.hidePassword, () {
+      super.hidePassword = value;
+    });
+  }
+
   late final _$statusAtom =
       Atom(name: '_RegisterStoreBase.status', context: context);
 
@@ -107,6 +123,17 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
   }
 
   @override
+  dynamic setHidePassowrd(bool value) {
+    final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
+        name: '_RegisterStoreBase.setHidePassowrd');
+    try {
+      return super.setHidePassowrd(value);
+    } finally {
+      _$_RegisterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setStatus(Status value) {
     final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
         name: '_RegisterStoreBase.setStatus');
@@ -133,6 +160,7 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
     return '''
 email: ${email},
 password: ${password},
+hidePassword: ${hidePassword},
 status: ${status},
 failureText: ${failureText},
 credential: ${credential}

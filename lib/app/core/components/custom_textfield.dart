@@ -10,6 +10,8 @@ class CustomTextfield extends StatelessWidget {
   final bool autofocus;
   final String? Function(String?)? validator;
   final AutovalidateMode autovalidateMode;
+  final IconData? suffixIcon;
+  final VoidCallback? suffixPressed;
 
   const CustomTextfield({
     this.padding,
@@ -21,6 +23,8 @@ class CustomTextfield extends StatelessWidget {
     this.labelText,
     this.validator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.suffixIcon,
+    this.suffixPressed,
     Key? key,
   }) : super(key: key);
 
@@ -39,6 +43,10 @@ class CustomTextfield extends StatelessWidget {
         ),
         autovalidateMode: autovalidateMode,
         decoration: InputDecoration(
+          suffixIcon: IconButton(
+            icon: Icon(suffixIcon, color: Theme.of(context).primaryColor),
+            onPressed: suffixPressed,
+          ),
           hintText: hintText,
           labelText: labelText,
           hintStyle: TextStyle(
