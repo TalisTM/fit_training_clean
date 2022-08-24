@@ -16,12 +16,6 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
           Computed<LoginCredentials>(() => super.credential,
               name: '_RegisterStoreBase.credential'))
       .value;
-  Computed<bool>? _$isValidComputed;
-
-  @override
-  bool get isValid => (_$isValidComputed ??= Computed<bool>(() => super.isValid,
-          name: '_RegisterStoreBase.isValid'))
-      .value;
 
   late final _$emailAtom =
       Atom(name: '_RegisterStoreBase.email', context: context);
@@ -141,8 +135,7 @@ email: ${email},
 password: ${password},
 status: ${status},
 failureText: ${failureText},
-credential: ${credential},
-isValid: ${isValid}
+credential: ${credential}
     ''';
   }
 }

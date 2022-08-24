@@ -1,3 +1,5 @@
+import 'package:fit_training_clean/app/core/components/custom_elevated_button.dart';
+import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/login/login_store.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   LoginStore store = Modular.get<LoginStore>();
 
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    emailController = TextEditingController(text: store.email);
+    passwordController = TextEditingController(text: store.password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,29 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Observer(builder: (context) {
         if (store.status == Status.initial) {
-          return Column(
-            children: [
-              const Center(child: Icon(Icons.heart_broken, size: 30)),
-              TextField(
-                onChanged: store.setEmail,
-              ),
-              TextField(
-                onChanged: store.setPassword,
-              ),
-              TextButton(
-                onPressed: store.isValid ? store.onEnterEmail : null,
-                child: const Text("Login"),
-              ),
-              TextButton(
-                onPressed: () => Modular.to.pushNamed("/register"),
-                child: const Text("Novo? se cadastrar"),
-              ),
-              TextButton(
-                onPressed: store.enterGoogle,
-                child: const Text("Google"),
-              )
-            ],
-          );
+          return _initial();
         } else if (store.status == Status.loading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -66,6 +57,106 @@ class _LoginPageState extends State<LoginPage> {
           return Container();
         }
       }),
+    );
+  }
+
+  Widget _initial() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 40, bottom: 40),
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  color: Theme.of(context).primaryColor,
+                  width: MediaQuery.of(context).size.width * 0.5,
+                ),
+              ),
+            ],
+          ),
+          Form(
+            key: store.key,
+            child: Column(
+              children: [
+                CustomTextfield(
+                  controller: emailController,
+                  labelText: "E-mail",
+                  onChanged: store.setEmail,
+                  hintText: "example@gmail.com",
+                  validator: store.validatorEmail,
+                ),
+                CustomTextfield(
+                  controller: passwordController,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  labelText: "Senha",
+                  hintText: "********",
+                  obscureText: true,
+                  onChanged: store.setPassword,
+                  validator: store.validatorPassword,
+                ),
+              ],
+            ),
+          ),
+          CustomElevatedButton(
+            label: "Login",
+            onPressed: store.onEnterEmail,
+          ),
+          TextButton(
+            onPressed: () => Modular.to.pushNamed("/register"),
+            child: Text(
+              "Novo? cadastrar-se",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                onPressed: store.enterGoogle,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Image.asset(
+                        "assets/images/logo_google.png",
+                        height: 25,
+                      ),
+                    ),
+                    Container(
+                      width: 2,
+                      height: 40,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        "Continuar com Google",
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                  ],
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    (const Color(0xFF2c2c2c)),
+                  ),
+                  padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                  // shape: MaterialStateProperty.all<OutlinedBorder>(
+                  //   RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  // ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 40)
+        ],
+      ),
     );
   }
 }

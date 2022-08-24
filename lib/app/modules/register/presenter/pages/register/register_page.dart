@@ -1,3 +1,5 @@
+import 'package:fit_training_clean/app/core/components/custom_elevated_button.dart';
+import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/register/presenter/pages/register/register_store.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,17 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   RegisterStore store = Modular.get<RegisterStore>();
 
+  late final TextEditingController emailController;
+  late final TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    emailController = TextEditingController(text: store.email);
+    passwordController = TextEditingController(text: store.password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,21 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
       body: Observer(
         builder: (context) {
           if (store.status == Status.initial) {
-            return Column(
-              children: [
-                const Center(child: Icon(Icons.heart_broken, size: 30)),
-                TextField(
-                  onChanged: store.setEmail,
-                ),
-                TextField(
-                  onChanged: store.setPassword,
-                ),
-                TextButton(
-                  onPressed: store.isValid ? store.onRegisterEmail : null,
-                  child: const Text("Cadastrar"),
-                )
-              ],
-            );
+            return _initial();
           } else if (store.status == Status.loading) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -59,6 +58,58 @@ class _RegisterPageState extends State<RegisterPage> {
             return Container();
           }
         },
+      ),
+    );
+  }
+
+  Widget _initial() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 40, bottom: 40),
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  color: Theme.of(context).primaryColor,
+                  width: MediaQuery.of(context).size.width * 0.5,
+                ),
+              ),
+            ],
+          ),
+          Form(
+            key: store.key,
+            child: Column(
+              children: [
+                CustomTextfield(
+                  controller: emailController,
+                  labelText: "E-mail",
+                  hintText: "example@gmail.com",
+                  onChanged: store.setEmail,
+                  validator: store.validatorEmail,
+                ),
+                CustomTextfield(
+                  controller: passwordController,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  labelText: "Senha",
+                  hintText: "********",
+                  obscureText: true,
+                  onChanged: store.setPassword,
+                  validator: store.validatorPassword,
+                ),
+              ],
+            ),
+          ),
+          CustomElevatedButton(
+            label: "Cadastrar",
+            onPressed: store.onRegisterEmail,
+          ),
+          const SizedBox(height: 40)
+        ],
       ),
     );
   }

@@ -23,15 +23,29 @@ abstract class _RegisterStoreBase with Store {
     required this.authStore,
   });
 
+  final key = GlobalKey<FormState>();
+
   @observable
   String email = "";
   @action
   setEmail(String value) => email = value;
+  String? validatorEmail(String? value) {
+    if (!credential.isValidEmail) {
+      return "E-mail inválido";
+    }
+    return null;
+  }
 
   @observable
   String password = "";
   @action
   setPassword(String value) => password = value;
+  String? validatorPassword(String? value) {
+    if (!credential.isValidPassword) {
+      return "Senha inválida";
+    }
+    return null;
+  }
 
   @observable
   Status status = Status.initial;
@@ -52,10 +66,8 @@ abstract class _RegisterStoreBase with Store {
         password: password,
       );
 
-  @computed
-  bool get isValid => credential.isValidEmail && credential.isValidPassword;
-
   Future<void> onRegisterEmail() async {
+    if (!key.currentState!.validate()) return;
     setStatus(Status.loading);
     var result = await registerWithEmailUsecase(credential);
     result.fold(

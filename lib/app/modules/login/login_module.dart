@@ -1,4 +1,5 @@
 import 'package:fit_training_clean/app/core/modules/auth/auth_module.dart';
+import 'package:fit_training_clean/app/core/modules/connection/connection_module.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/create_user_data_module.dart';
 import 'package:fit_training_clean/app/modules/login/data/repositories/login_repository_impl.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_email_usecase.dart';
@@ -18,6 +19,7 @@ class LoginModule extends Module {
         Bind((i) => LoginRepositoryImpl(datasource: i())),
         Bind((i) => FirebaseLoginDatasourceImpl(auth: i(), googleSignIn: i())),
         Bind((i) => LoginStore(
+              hasConnectionUsecase: i(),
               loginWithEmailUsecase: i(),
               loginWithGoogleUsecase: i(),
               createUserDataUsecase: i(),
@@ -28,7 +30,8 @@ class LoginModule extends Module {
   @override
   List<Module> get imports => [
         CreateUserDataModule(),
-        AuthModule()
+        AuthModule(),
+        ConnectionModule()
       ];
 
   @override
