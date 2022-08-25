@@ -1,28 +1,58 @@
+import 'package:fit_training_clean/app/core/components/animated_logo.dart';
 import 'package:fit_training_clean/app/core/modules/splash/presenter/pages/splash/splash_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class SplashPage extends StatelessWidget {
-  SplashPage({Key? key}) : super(key: key) {
-    SplashStore store = Modular.get<SplashStore>();
+class SplashPage extends StatefulWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
-    store.checkLogin().then((_) async {
-      return await Future.delayed(const Duration(seconds: 1));
-    }).then((_) {
-      if (store.authStore.isLogged) {
-        Modular.to.pushNamedAndRemoveUntil("/home", (p0) => false);
-      } else {
-        Modular.to.pushNamedAndRemoveUntil("/login", (p0) => false);
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+  SplashStore store = Modular.get<SplashStore>();
+
+  late final AnimationController _animationController;
+
+  void getUser() async {
+    await store.checkLogin();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getUser();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+    _animationController.forward();
+
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        if (store.authStore.isLogged) {
+          Modular.to.pushNamedAndRemoveUntil("/home", (p0) => false);
+        } else {
+          Modular.to.pushNamedAndRemoveUntil("/login", (p0) => false);
+        }
       }
     });
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Material(
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
+    return Material(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Center(child: AnimatedLogo(controller: _animationController)),
     );
   }
 }
