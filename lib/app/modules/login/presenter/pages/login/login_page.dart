@@ -1,4 +1,5 @@
 import 'package:fit_training_clean/app/core/components/custom_elevated_button.dart';
+import 'package:fit_training_clean/app/core/components/custom_text_button.dart';
 import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/login/login_store.dart';
@@ -70,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 40, bottom: 40),
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Image.asset(
                   "assets/images/logo.png",
                   color: Theme.of(context).primaryColor,
@@ -92,69 +93,74 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 CustomTextfield(
                   controller: passwordController,
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.only(top: 20),
                   labelText: "Senha",
                   hintText: "********",
                   obscureText: store.hidePassword,
                   onChanged: store.setPassword,
                   validator: store.validatorPassword,
-                  suffixIcon: store.hidePassword ? Icons.visibility_off : Icons.visibility,
+                  suffixIcon: store.hidePassword ? Icons.visibility : Icons.visibility_off,
                   suffixPressed: () => store.setHidePassowrd(!store.hidePassword),
                 ),
               ],
             ),
           ),
-          CustomElevatedButton(
-            label: "Login",
-            onPressed: store.onEnterEmail,
-          ),
-          TextButton(
-            onPressed: () => Modular.to.pushNamed("/register"),
-            child: Text(
-              "Novo? cadastrar-se",
-              style: TextStyle(color: Theme.of(context).primaryColor),
-            ),
-          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(
-                onPressed: store.enterGoogle,
-                child: Row(
-                  children: [
-                    Padding(
+              CustomTextButton(
+                label: "Esqueceu a senha?",
+                onPressed: () {},
+              ),
+            ],
+          ),
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      CustomElevatedButton(
+                        label: "Login",
+                        margin: const EdgeInsets.only(bottom: 15),
+                        onPressed: store.onEnterEmail,
+                      ),
+                      CustomElevatedButton.outlined(
+                        label: "Cadastrar-se",
+                        onPressed: () => Modular.to.pushNamed("/register"),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 15),
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: TextButton(
+                    onPressed: store.enterGoogle,
+                    child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Image.asset(
                         "assets/images/logo_google.png",
-                        height: 25,
+                        height: 50,
                       ),
                     ),
-                    Container(
-                      width: 2,
-                      height: 40,
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        "Continuar com Google",
-                        style: TextStyle(color: Theme.of(context).primaryColor),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        (const Color(0xFF2c2c2c)),
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
-                  ],
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    (const Color(0xFF2c2c2c)),
                   ),
-                  padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-                  // shape: MaterialStateProperty.all<OutlinedBorder>(
-                  //   RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  // ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 40)
         ],

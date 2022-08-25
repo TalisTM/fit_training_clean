@@ -100,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   obscureText: store.hidePassword,
                   onChanged: store.setPassword,
                   validator: store.validatorPassword,
-                  suffixIcon: store.hidePassword ? Icons.visibility_off : Icons.visibility,
+                  suffixIcon: store.hidePassword ? Icons.visibility : Icons.visibility_off,
                   suffixPressed: () => store.setHidePassowrd(!store.hidePassword),
                 ),
               ],
