@@ -1,5 +1,6 @@
 import 'package:fit_training_clean/app/core/components/custom_elevated_button.dart';
 import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
+import 'package:fit_training_clean/app/core/components/show_error.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/register/presenter/pages/register/register_store.dart';
 import 'package:flutter/material.dart';
@@ -43,16 +44,10 @@ class _RegisterPageState extends State<RegisterPage> {
               child: CircularProgressIndicator(),
             );
           } else if (store.status == Status.failure) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text("Ocorreu um erro"),
-                Text(store.failureText!),
-                TextButton(
-                  child: const Text("Ok"),
-                  onPressed: () => store.setStatus(Status.initial),
-                )
-              ],
+            return ShowError(
+              title: "Ocorreu um erro",
+              content: store.failureText!,
+              onPressed: () => store.setStatus(Status.initial),
             );
           } else {
             return Container();

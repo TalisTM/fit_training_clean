@@ -1,4 +1,5 @@
 import 'package:fit_training_clean/app/core/modules/auth/auth_module.dart';
+import 'package:fit_training_clean/app/core/modules/connection/connection_module.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/create_user_data_module.dart';
 import 'package:fit_training_clean/app/modules/register/data/repositories/register_repository_impl.dart';
 import 'package:fit_training_clean/app/modules/register/domain/usecases/register_with_email_usecase.dart';
@@ -14,6 +15,7 @@ class RegisterModule extends Module {
         Bind((i) => RegisterRepositoryImpl(datasource: i())),
         Bind((i) => FirebaseRegisterDatasourceImpl(auth: i())),
         Bind((i) => RegisterStore(
+              hasConnectionUsecase: i(),
               authStore: i(),
               createUserDataUsecase: i(),
               registerWithEmailUsecase: i(),
@@ -24,6 +26,7 @@ class RegisterModule extends Module {
   List<Module> get imports => [
         CreateUserDataModule(),
         AuthModule(),
+        ConnectionModule()
       ];
 
   @override

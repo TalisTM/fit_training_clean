@@ -1,6 +1,7 @@
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_store.dart';
+import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/has_connection_usecase.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/domain/usecases/create_user_data_usecase.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/register/domain/usecases/register_with_email_usecase.dart';
@@ -13,11 +14,13 @@ part 'register_store.g.dart';
 class RegisterStore = _RegisterStoreBase with _$RegisterStore;
 
 abstract class _RegisterStoreBase with Store {
+  final HasConnectionUsecase hasConnectionUsecase;
   final RegisterWithEmailUsecase registerWithEmailUsecase;
   final CreateUserDataUsecase createUserDataUsecase;
   final AuthStore authStore;
 
   _RegisterStoreBase({
+    required this.hasConnectionUsecase,
     required this.registerWithEmailUsecase,
     required this.createUserDataUsecase,
     required this.authStore,
@@ -71,9 +74,27 @@ abstract class _RegisterStoreBase with Store {
         password: password,
       );
 
+  Future<bool> verifyConnection() async {
+    bool hasConnection = false;
+    var result = await hasConnectionUsecase();
+
+    result.map((connection) {
+      if (connection) hasConnection = true;
+    });
+
+    return hasConnection;
+  }
+
   Future<void> onRegisterEmail() async {
     if (!key.currentState!.validate()) return;
     setStatus(Status.loading);
+
+    bool hasConnection = await verifyConnection();
+    if (!hasConnection) {
+      setFailureText("Verifique sua conexão e tente novamente");
+      return;
+    }
+
     var result = await registerWithEmailUsecase(credential);
     result.fold(
       (faulure) => setFailureText(faulure.message),

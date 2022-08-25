@@ -77,17 +77,26 @@ abstract class _LoginStoreBase with Store {
         password: password,
       );
 
-  Future<void> verifyConnection() async {
-    var hasConnection = await hasConnectionUsecase();
+  Future<bool> verifyConnection() async {
+    bool hasConnection = false;
+    var result = await hasConnectionUsecase();
 
-    hasConnection.leftMap((failure) => setFailureText(failure.message));
+    result.map((connection) {
+      if (connection) hasConnection = true;
+    });
+
+    return hasConnection;
   }
 
   Future<void> onEnterEmail() async {
     if (!key.currentState!.validate()) return;
     setStatus(Status.loading);
 
-    //await verifyConnection();
+    bool hasConnection = await verifyConnection();
+    if (!hasConnection) {
+      setFailureText("Verifique sua conexão e tente novamente");
+      return;
+    }
 
     var loginWithEmail = await loginWithEmailUsecase(credential);
     loginWithEmail.fold(

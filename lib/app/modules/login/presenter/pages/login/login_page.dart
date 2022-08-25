@@ -1,6 +1,7 @@
 import 'package:fit_training_clean/app/core/components/custom_elevated_button.dart';
 import 'package:fit_training_clean/app/core/components/custom_text_button.dart';
 import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
+import 'package:fit_training_clean/app/core/components/show_error.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/login/login_store.dart';
 import 'package:flutter/material.dart';
@@ -43,16 +44,10 @@ class _LoginPageState extends State<LoginPage> {
             child: CircularProgressIndicator(),
           );
         } else if (store.status == Status.failure) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text("Ocorreu um erro"),
-              Text(store.failureText!),
-              TextButton(
-                child: const Text("Ok"),
-                onPressed: () => store.setStatus(Status.initial),
-              )
-            ],
+          return ShowError(
+            title: "Ocorreu um erro",
+            content: store.failureText!,
+            onPressed: () => store.setStatus(Status.initial),
           );
         } else {
           return Container();
@@ -74,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Image.asset(
                   "assets/images/logo.png",
-                  color: Theme.of(context).primaryColor,
                   width: MediaQuery.of(context).size.width * 0.5,
                 ),
               ),
