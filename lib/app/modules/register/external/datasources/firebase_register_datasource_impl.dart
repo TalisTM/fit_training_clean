@@ -4,7 +4,7 @@ import 'package:fit_training_clean/app/modules/register/data/datasources/registe
 
 class FirebaseRegisterDatasourceImpl implements RegisterDatasource {
   final FirebaseAuth auth;
-  FirebaseRegisterDatasourceImpl({required this.auth});
+  const FirebaseRegisterDatasourceImpl({required this.auth});
 
   @override
   Future<UserModel> registerEmail({required String email, required String password}) async {
@@ -14,7 +14,7 @@ class FirebaseRegisterDatasourceImpl implements RegisterDatasource {
     return UserModel(
       uid: user!.uid,
       name: user.displayName ?? "",
-      email: user.email ?? "",
+      email: user.email!,
       photoUrl: user.photoURL ?? "",
       amountDone: 0,
       restTimeInSeconds: 60,

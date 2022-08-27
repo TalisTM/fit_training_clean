@@ -9,7 +9,7 @@ class UserEntity {
   final int restTimeInSeconds;
   final List<WorkoutEntity> workouts;
 
-  UserEntity({
+  const UserEntity({
     required this.uid,
     required this.name,
     required this.email,

@@ -4,6 +4,7 @@ import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_s
 import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/has_connection_usecase.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/domain/usecases/create_user_data_usecase.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
+import 'package:fit_training_clean/app/core/utils/utils.dart';
 import 'package:fit_training_clean/app/modules/register/domain/usecases/register_with_email_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -28,10 +29,23 @@ abstract class _RegisterStoreBase with Store {
 
   final key = GlobalKey<FormState>();
 
+  // NAME
+  @observable
+  String name = "";
+  @action
+  void setName(String value) => name = value;
+  String? validatorName(String? value) {
+    if (name.isEmpty) {
+      return "Nome inválido";
+    }
+    return null;
+  }
+
+  // EMAIL
   @observable
   String email = "";
   @action
-  setEmail(String value) => email = value;
+  void setEmail(String value) => email = value;
   String? validatorEmail(String? value) {
     if (!credential.isValidEmail) {
       return "E-mail inválido";
@@ -39,10 +53,11 @@ abstract class _RegisterStoreBase with Store {
     return null;
   }
 
+  // PASSWORD
   @observable
   String password = "";
   @action
-  setPassword(String value) => password = value;
+  void setPassword(String value) => password = value;
   String? validatorPassword(String? value) {
     if (!credential.isValidPassword) {
       return "Senha inválida";
@@ -50,20 +65,39 @@ abstract class _RegisterStoreBase with Store {
     return null;
   }
 
+  // CONFPASSWORD
+  @observable
+  String confPassword = "";
+  @action
+  void setConfPassword(String value) => confPassword = value;
+  String? validatorConfPassword(String? value) {
+    if (confPassword.length <= 5) {
+      return "Senha inválida";
+    }
+
+    if (confPassword != password) {
+      return "Senhas não coincidem";
+    }
+    return null;
+  }
+
+  //HIDE PASSWORD
   @observable
   bool hidePassword = true;
   @action
-  setHidePassowrd(bool value) => hidePassword = value;
+  void setHidePassowrd(bool value) => hidePassword = value;
 
+  // STATUS
   @observable
   Status status = Status.initial;
   @action
-  setStatus(Status value) => status = value;
+  void setStatus(Status value) => status = value;
 
+  // FAILURE TEXT
   @observable
   String? failureText;
   @action
-  setFailureText(String value) {
+  void setFailureText(String value) {
     setStatus(Status.failure);
     failureText = value;
   }
@@ -74,22 +108,15 @@ abstract class _RegisterStoreBase with Store {
         password: password,
       );
 
-  Future<bool> verifyConnection() async {
-    bool hasConnection = false;
-    var result = await hasConnectionUsecase();
-
-    result.map((connection) {
-      if (connection) hasConnection = true;
-    });
-
-    return hasConnection;
+  void onRegisterEmail() {
+    if (!key.currentState!.validate()) return;
+    requestRegisterEmail();
   }
 
-  Future<void> onRegisterEmail() async {
-    if (!key.currentState!.validate()) return;
+  Future<void> requestRegisterEmail() async {
     setStatus(Status.loading);
 
-    bool hasConnection = await verifyConnection();
+    bool hasConnection = await Utils.connection.hasConnection(hasConnectionUsecase);
     if (!hasConnection) {
       setFailureText("Verifique sua conexão e tente novamente");
       return;
@@ -98,7 +125,18 @@ abstract class _RegisterStoreBase with Store {
     var result = await registerWithEmailUsecase(credential);
     result.fold(
       (faulure) => setFailureText(faulure.message),
-      (user) async => saveUserData(user),
+      (resultUser) async {
+        UserEntity user = UserEntity(
+          uid: resultUser.uid,
+          name: name,
+          email: resultUser.email,
+          photoUrl: resultUser.photoUrl,
+          amountDone: resultUser.amountDone,
+          restTimeInSeconds: resultUser.restTimeInSeconds,
+          workouts: resultUser.workouts,
+        );
+        saveUserData(user);
+      },
     );
   }
 

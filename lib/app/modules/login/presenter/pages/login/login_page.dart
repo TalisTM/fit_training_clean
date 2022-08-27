@@ -2,6 +2,7 @@ import 'package:fit_training_clean/app/core/components/custom_elevated_button.da
 import 'package:fit_training_clean/app/core/components/custom_text_button.dart';
 import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
 import 'package:fit_training_clean/app/core/components/show_error.dart';
+import 'package:fit_training_clean/app/core/components/show_loading.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/modules/login/presenter/pages/login/login_store.dart';
 import 'package:flutter/material.dart';
@@ -37,128 +38,120 @@ class _LoginPageState extends State<LoginPage> {
         centerTitle: true,
       ),
       body: Observer(builder: (context) {
-        if (store.status == Status.initial) {
-          return _initial();
-        } else if (store.status == Status.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (store.status == Status.failure) {
+        if (store.status == Status.loading) {
+          return const ShowLoading();
+        }
+        if (store.status == Status.failure) {
           return ShowError(
             title: "Ocorreu um erro",
             content: store.failureText!,
             onPressed: () => store.setStatus(Status.initial),
           );
-        } else {
-          return Container();
         }
-      }),
-    );
-  }
-
-  Widget _initial() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        return SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Image.asset(
-                  "assets/images/logo.png",
-                  width: MediaQuery.of(context).size.width * 0.5,
-                ),
-              ),
-            ],
-          ),
-          Form(
-            key: store.key,
-            child: Column(
-              children: [
-                CustomTextfield(
-                  controller: emailController,
-                  labelText: "E-mail",
-                  onChanged: store.setEmail,
-                  hintText: "example@gmail.com",
-                  validator: store.validatorEmail,
-                ),
-                CustomTextfield(
-                  controller: passwordController,
-                  padding: const EdgeInsets.only(top: 20),
-                  labelText: "Senha",
-                  hintText: "********",
-                  obscureText: store.hidePassword,
-                  onChanged: store.setPassword,
-                  validator: store.validatorPassword,
-                  suffixIcon: store.hidePassword ? Icons.visibility : Icons.visibility_off,
-                  suffixPressed: () => store.setHidePassowrd(!store.hidePassword),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomTextButton(
-                label: "Esqueceu a senha?",
-                onPressed: () {},
-              ),
-            ],
-          ),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      CustomElevatedButton(
-                        label: "Login",
-                        margin: const EdgeInsets.only(bottom: 15),
-                        onPressed: store.onEnterEmail,
-                      ),
-                      CustomElevatedButton.outlined(
-                        label: "Cadastrar-se",
-                        onPressed: () => Modular.to.pushNamed("/register"),
-                      ),
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Image.asset(
+                      "assets/images/logo.png",
+                      width: MediaQuery.of(context).size.width * 0.5,
+                    ),
                   ),
+                ],
+              ),
+              Form(
+                key: store.key,
+                child: Column(
+                  children: [
+                    CustomTextfield(
+                      controller: emailController,
+                      labelText: "E-mail",
+                      onChanged: store.setEmail,
+                      hintText: "example@gmail.com",
+                      validator: store.validatorEmail,
+                    ),
+                    CustomTextfield(
+                      controller: passwordController,
+                      padding: const EdgeInsets.only(top: 20),
+                      labelText: "Senha",
+                      hintText: "********",
+                      obscureText: store.hidePassword,
+                      onChanged: store.setPassword,
+                      validator: store.validatorPassword,
+                      suffixIcon: store.hidePassword ? Icons.visibility : Icons.visibility_off,
+                      suffixPressed: () => store.setHidePassowrd(!store.hidePassword),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 15),
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: TextButton(
-                    onPressed: store.enterGoogle,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        "assets/images/logo_google.png",
-                        height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomTextButton(
+                    label: "Esqueceu a senha?",
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          CustomElevatedButton(
+                            label: "Login",
+                            margin: const EdgeInsets.only(bottom: 15),
+                            onPressed: store.onEnterEmail,
+                          ),
+                          CustomElevatedButton.outlined(
+                            label: "Cadastrar-se",
+                            onPressed: () => Modular.to.pushNamed("/register"),
+                          ),
+                        ],
                       ),
                     ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        (const Color(0xFF2c2c2c)),
-                      ),
-                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    const SizedBox(width: 15),
+                    AspectRatio(
+                      aspectRatio: 1,
+                      child: TextButton(
+                        onPressed: store.enterGoogle,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Image.asset(
+                            "assets/images/logo_google.png",
+                            height: 50,
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            (const Color(0xFF2c2c2c)),
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 40)
+            ],
           ),
-          const SizedBox(height: 40)
-        ],
-      ),
+        );
+      }),
     );
   }
 }

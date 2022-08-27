@@ -5,7 +5,7 @@ class AnimatedLogo extends StatelessWidget {
 
   AnimatedLogo({required this.controller, Key? key})
       : size = Tween(begin: 0.3, end: 0.8).animate(
-          CurvedAnimation(parent: controller, curve: const Interval(0.0, 0.5)),
+          CurvedAnimation(parent: controller, curve: const Interval(0.0, 1.0)),
         ),
         rotation = Tween(begin: 0.0, end: 0.5).animate(
           CurvedAnimation(parent: controller, curve: const Interval(0.0, 1.0)),

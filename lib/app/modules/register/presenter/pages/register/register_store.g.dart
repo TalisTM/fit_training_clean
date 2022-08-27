@@ -17,6 +17,22 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
               name: '_RegisterStoreBase.credential'))
       .value;
 
+  late final _$nameAtom =
+      Atom(name: '_RegisterStoreBase.name', context: context);
+
+  @override
+  String get name {
+    _$nameAtom.reportRead();
+    return super.name;
+  }
+
+  @override
+  set name(String value) {
+    _$nameAtom.reportWrite(value, super.name, () {
+      super.name = value;
+    });
+  }
+
   late final _$emailAtom =
       Atom(name: '_RegisterStoreBase.email', context: context);
 
@@ -46,6 +62,22 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
   set password(String value) {
     _$passwordAtom.reportWrite(value, super.password, () {
       super.password = value;
+    });
+  }
+
+  late final _$confPasswordAtom =
+      Atom(name: '_RegisterStoreBase.confPassword', context: context);
+
+  @override
+  String get confPassword {
+    _$confPasswordAtom.reportRead();
+    return super.confPassword;
+  }
+
+  @override
+  set confPassword(String value) {
+    _$confPasswordAtom.reportWrite(value, super.confPassword, () {
+      super.confPassword = value;
     });
   }
 
@@ -101,7 +133,18 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
       ActionController(name: '_RegisterStoreBase', context: context);
 
   @override
-  dynamic setEmail(String value) {
+  void setName(String value) {
+    final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
+        name: '_RegisterStoreBase.setName');
+    try {
+      return super.setName(value);
+    } finally {
+      _$_RegisterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setEmail(String value) {
     final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
         name: '_RegisterStoreBase.setEmail');
     try {
@@ -112,7 +155,7 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
   }
 
   @override
-  dynamic setPassword(String value) {
+  void setPassword(String value) {
     final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
         name: '_RegisterStoreBase.setPassword');
     try {
@@ -123,7 +166,18 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
   }
 
   @override
-  dynamic setHidePassowrd(bool value) {
+  void setConfPassword(String value) {
+    final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
+        name: '_RegisterStoreBase.setConfPassword');
+    try {
+      return super.setConfPassword(value);
+    } finally {
+      _$_RegisterStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHidePassowrd(bool value) {
     final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
         name: '_RegisterStoreBase.setHidePassowrd');
     try {
@@ -134,7 +188,7 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
   }
 
   @override
-  dynamic setStatus(Status value) {
+  void setStatus(Status value) {
     final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
         name: '_RegisterStoreBase.setStatus');
     try {
@@ -145,7 +199,7 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
   }
 
   @override
-  dynamic setFailureText(String value) {
+  void setFailureText(String value) {
     final _$actionInfo = _$_RegisterStoreBaseActionController.startAction(
         name: '_RegisterStoreBase.setFailureText');
     try {
@@ -158,8 +212,10 @@ mixin _$RegisterStore on _RegisterStoreBase, Store {
   @override
   String toString() {
     return '''
+name: ${name},
 email: ${email},
 password: ${password},
+confPassword: ${confPassword},
 hidePassword: ${hidePassword},
 status: ${status},
 failureText: ${failureText},

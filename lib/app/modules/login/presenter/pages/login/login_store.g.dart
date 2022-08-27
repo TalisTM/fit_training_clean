@@ -101,7 +101,7 @@ mixin _$LoginStore on _LoginStoreBase, Store {
       ActionController(name: '_LoginStoreBase', context: context);
 
   @override
-  dynamic setEmail(String value) {
+  void setEmail(String value) {
     final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
         name: '_LoginStoreBase.setEmail');
     try {
@@ -112,7 +112,7 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   }
 
   @override
-  dynamic setPassword(String value) {
+  void setPassword(String value) {
     final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
         name: '_LoginStoreBase.setPassword');
     try {
@@ -123,7 +123,7 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   }
 
   @override
-  dynamic setHidePassowrd(bool value) {
+  void setHidePassowrd(bool value) {
     final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
         name: '_LoginStoreBase.setHidePassowrd');
     try {
@@ -134,7 +134,7 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   }
 
   @override
-  dynamic setStatus(Status value) {
+  void setStatus(Status value) {
     final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
         name: '_LoginStoreBase.setStatus');
     try {
@@ -145,7 +145,7 @@ mixin _$LoginStore on _LoginStoreBase, Store {
   }
 
   @override
-  dynamic setFailureText(String value) {
+  void setFailureText(String value) {
     final _$actionInfo = _$_LoginStoreBaseActionController.startAction(
         name: '_LoginStoreBase.setFailureText');
     try {

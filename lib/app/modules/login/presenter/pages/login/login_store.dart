@@ -4,6 +4,7 @@ import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_s
 import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/has_connection_usecase.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/domain/usecases/create_user_data_usecase.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
+import 'package:fit_training_clean/app/core/utils/utils.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_email_usecase.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_google_usecase.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +32,13 @@ abstract class _LoginStoreBase with Store {
 
   final key = GlobalKey<FormState>();
 
+  // EMAIL
   @observable
   String email = "";
+
   @action
-  setEmail(String value) => email = value;
+  void setEmail(String value) => email = value;
+
   String? validatorEmail(String? string) {
     if (!credential.isValidEmail) {
       return "E-mail inválido";
@@ -42,10 +46,13 @@ abstract class _LoginStoreBase with Store {
     return null;
   }
 
+  // PASSWORD
   @observable
   String password = "";
+
   @action
-  setPassword(String value) => password = value;
+  void setPassword(String value) => password = value;
+
   String? validatorPassword(String? string) {
     if (!credential.isValidPassword) {
       return "Senha inválida";
@@ -53,20 +60,26 @@ abstract class _LoginStoreBase with Store {
     return null;
   }
 
+  // HIDE PASSWORD
   @observable
   bool hidePassword = true;
-  @action
-  setHidePassowrd(bool value) => hidePassword = value;
 
+  @action
+  void setHidePassowrd(bool value) => hidePassword = value;
+
+  // STATUS
   @observable
   Status status = Status.initial;
-  @action
-  setStatus(Status value) => status = value;
 
+  @action
+  void setStatus(Status value) => status = value;
+
+  //FAILURE TEXT
   @observable
   String? failureText;
+
   @action
-  setFailureText(String value) {
+  void setFailureText(String value) {
     setStatus(Status.failure);
     failureText = value;
   }
@@ -77,22 +90,15 @@ abstract class _LoginStoreBase with Store {
         password: password,
       );
 
-  Future<bool> verifyConnection() async {
-    bool hasConnection = false;
-    var result = await hasConnectionUsecase();
-
-    result.map((connection) {
-      if (connection) hasConnection = true;
-    });
-
-    return hasConnection;
-  }
+  Future<bool> get _hasConnection async => await Utils.connection.hasConnection(
+        hasConnectionUsecase,
+      );
 
   Future<void> onEnterEmail() async {
     if (!key.currentState!.validate()) return;
     setStatus(Status.loading);
 
-    bool hasConnection = await verifyConnection();
+    bool hasConnection = await _hasConnection;
     if (!hasConnection) {
       setFailureText("Verifique sua conexão e tente novamente");
       return;
@@ -106,7 +112,11 @@ abstract class _LoginStoreBase with Store {
   }
 
   Future<void> enterGoogle() async {
-    await verifyConnection();
+    bool hasConnection = await _hasConnection;
+    if (!hasConnection) {
+      setFailureText("Verifique sua conexão e tente novamente");
+      return;
+    }
 
     var result = await loginWithGoogleUsecase();
 

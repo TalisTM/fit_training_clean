@@ -22,6 +22,11 @@ class _ShowLoadingState extends State<ShowLoading> with SingleTickerProviderStat
 
     _animationController.forward();
 
+    _animationController.addStatusListener((status) {
+      if (status != AnimationStatus.completed) return;
+
+      _animationController.repeat(reverse: true);
+    });
   }
 
   @override
@@ -32,10 +37,8 @@ class _ShowLoadingState extends State<ShowLoading> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: AnimatedLogo(controller: _animationController),
-      ),
+    return Center(
+      child: AnimatedLogo(controller: _animationController),
     );
   }
 }
