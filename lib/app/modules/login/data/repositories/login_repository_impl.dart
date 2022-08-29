@@ -30,4 +30,14 @@ class LoginRepositoryImpl implements LoginRepository {
       return Left(ErrorLoginGoogle(message: "Error login with google"));
     }
   }
+
+  @override
+  Future<Either<FailureLogin, Unit>> recoverPassword({required String email}) async {
+    try {
+      await datasource.recoverPassword(email: email);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ErrorRecoverPassword(message: "Error recover password"));
+    }
+  }
 }

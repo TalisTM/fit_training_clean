@@ -71,4 +71,25 @@ void main() {
       expect(result.leftMap((l) => l is ErrorLoginGoogle), const Left(true));
     });
   });
+
+  group("RecoverPassword", () {
+    test("Deve retornar sucesso", () async {
+      when(
+        () => datasource.recoverPassword(email: any(named: "email")),
+      ).thenAnswer((_) async {});
+
+      var result = await repository.recoverPassword(email: "talis@gmail.com");
+      expect(result, const Right(unit));
+    });
+
+    test("Deve retornar um ErrorRecoverPassword", () async {
+      when(
+        () => datasource.recoverPassword(email: any(named: "email")),
+      ).thenThrow(ErrorRecoverPassword());
+
+      var result = await repository.recoverPassword(email: "talis@gmail.com");
+
+      expect(result.leftMap((l) => l is ErrorRecoverPassword), const Left(true));
+    });
+  });
 }

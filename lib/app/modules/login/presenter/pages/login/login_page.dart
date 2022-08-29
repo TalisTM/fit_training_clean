@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             onPressed: () => store.setStatus(Status.initial),
           );
         }
-        return SingleChildScrollView(
+        return SingleChildScrollView( 
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   CustomTextButton(
                     label: "Esqueceu a senha?",
-                    onPressed: () {},
+                    onPressed: () => Modular.to.pushNamed("/login/recover-password"),
                   ),
                 ],
               ),
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     AspectRatio(
                       aspectRatio: 1,
                       child: TextButton(
-                        onPressed: store.enterGoogle,
+                        onPressed: store.onEnterGoogle,
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Image.asset(

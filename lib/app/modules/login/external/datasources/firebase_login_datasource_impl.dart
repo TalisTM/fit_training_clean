@@ -47,4 +47,9 @@ class FirebaseLoginDatasourceImpl implements LoginDatasource {
       workouts: [],
     );
   }
+
+  @override
+  Future<void> recoverPassword({required String email}) async {
+    return await auth.sendPasswordResetEmail(email: email);
+  }
 }

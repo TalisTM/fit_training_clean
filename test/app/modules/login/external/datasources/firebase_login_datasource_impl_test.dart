@@ -18,7 +18,7 @@ class GoogleSignInAccountMock extends Mock implements GoogleSignInAccount {}
 
 class GoogleSignInAuthenticationMock extends Mock implements GoogleSignInAuthentication {}
 
-final userMock = UserEntity(
+const userMock = UserEntity(
   uid: "1234",
   name: "Talis",
   email: "talismarchioro@gmail.com",
@@ -90,5 +90,25 @@ void main() {
     expect(result.name, equals(userMock.name));
     expect(result.email, equals(userMock.email));
     expect(result.photoUrl, equals(userMock.photoUrl));
+  });
+
+  test("Deve retornar sucesso via RecoverPassword", () {
+    when(
+      () => auth.sendPasswordResetEmail(email: any(named: "email")),
+    ).thenAnswer((_) async => {});
+
+    var result = datasource.recoverPassword(email: "talis@gmail.com");
+
+    expect(result, completes);
+  });
+
+  test("Deve retornar ErrorRecoverPassword via RecoverPassword", () {
+    when(
+      () => auth.sendPasswordResetEmail(email: any(named: "email")),
+    ).thenThrow(Exception());
+
+    var result = datasource.recoverPassword(email: "talis@gmail.com");
+
+    expect(result, throwsA(isA<Exception>()));
   });
 }

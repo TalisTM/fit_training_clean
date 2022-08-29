@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 40, bottom: 40),
+                      padding: const EdgeInsets.only(top: 20, bottom: 40),
                       child: Image.asset(
                         "assets/images/logo.png",
                         color: Theme.of(context).primaryColor,

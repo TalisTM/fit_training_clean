@@ -27,12 +27,16 @@ abstract class _HomeStoreBase with Store {
     failureText = value;
   }
 
-  Future<void> onLogout() async {
+  void onLogout() {
+    requestlogout();
+  }
+
+  Future<void> requestlogout() async {
     var result = await logoutUsecase();
 
     result.fold(
       (failure) => setFailureText(failure.message),
-      (r) {
+      (_) {
         authStore.setUser(null);
         Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
         Modular.to.pop();

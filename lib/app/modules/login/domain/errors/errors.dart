@@ -13,3 +13,9 @@ class ErrorLoginGoogle implements FailureLogin {
   String message;
   ErrorLoginGoogle({this.message = ""});
 }
+
+class ErrorRecoverPassword implements FailureLogin {
+  @override
+  String message;
+  ErrorRecoverPassword({this.message = ""});
+}

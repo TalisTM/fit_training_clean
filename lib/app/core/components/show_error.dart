@@ -16,43 +16,53 @@ class ShowError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/images/warning.png",
-                width: MediaQuery.of(context).size.width * 0.5,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight!,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(height: 20),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/warning.png",
+                      width: MediaQuery.of(context).size.width * 0.5,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  content ?? "",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 15),
-          Text(
-            content ?? "",
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
-          ),
-          CustomElevatedButton.outlined(
-            margin: const EdgeInsets.only(top: 20),
-            label: titleButton,
-            onPressed: onPressed,
-          )
-        ],
+            CustomElevatedButton.outlined(
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              label: titleButton,
+              onPressed: onPressed,
+            )
+          ],
+        ),
       ),
     );
   }

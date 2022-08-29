@@ -4,4 +4,6 @@ abstract class LoginDatasource {
   Future<UserModel> loginEmail({required String email, required String password});
 
   Future<UserModel> loginGoogle();
+
+  Future<void> recoverPassword({required String email});
 }

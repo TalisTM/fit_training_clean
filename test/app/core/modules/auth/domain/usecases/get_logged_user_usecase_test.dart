@@ -8,7 +8,7 @@ import 'package:mocktail/mocktail.dart';
 
 class AuthRepositoryMock extends Mock implements AuthRepository {}
 
-final UserEntity userEntityMock = UserEntity(
+const UserEntity userEntityMock = UserEntity(
   uid: "1234",
   name: "Talis",
   email: "talismarchioro@gmail.com",
@@ -28,11 +28,11 @@ void main() {
   });
 
   test("Verificar se existe usuario logado", () async {
-    when(() => repository.loggedUser()).thenAnswer((_) async => Right(userEntityMock));
+    when(() => repository.loggedUser()).thenAnswer((_) async => const Right(userEntityMock));
 
     var result = await usecase();
 
-    expect(result, Right(userEntityMock));
+    expect(result, const Right(userEntityMock));
   });
 
   test("Deve retornar null caso nao tenha usuario logado", () async {

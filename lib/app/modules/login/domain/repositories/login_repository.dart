@@ -9,4 +9,6 @@ abstract class LoginRepository {
   });
 
   Future<Either<FailureLogin, UserEntity>> loginGoogle();
+
+  Future<Either<FailureLogin, Unit>> recoverPassword({required String email});
 }
