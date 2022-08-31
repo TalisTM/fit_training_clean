@@ -38,8 +38,7 @@ abstract class _HomeStoreBase with Store {
       (failure) => setFailureText(failure.message),
       (_) {
         authStore.setUser(null);
-        Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
-        Modular.to.pop();
+        Modular.to.pushNamedAndRemoveUntil("/", (p0) => false);
       },
     );
   }

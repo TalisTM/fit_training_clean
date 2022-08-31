@@ -142,8 +142,7 @@ abstract class _LoginStoreBase with Store {
       (failure) => setFailureText(failure.message),
       (savedUser) {
         authStore.setUser(savedUser);
-        Modular.to.popUntil(ModalRoute.withName(Modular.initialRoute));
-        Modular.to.pop();
+        Modular.to.pushNamedAndRemoveUntil("/home", (p0) => false);
       },
     );
   }
