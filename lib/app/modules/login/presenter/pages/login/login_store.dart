@@ -105,7 +105,7 @@ abstract class _LoginStoreBase with Store {
 
     bool hasConnection = await _hasConnection;
     if (!hasConnection) {
-      setFailureText("Verifique sua conexão e tente novamente");
+      setFailureText("Verifique sua conexão e tente novamente.");
       return;
     }
 
@@ -117,13 +117,13 @@ abstract class _LoginStoreBase with Store {
   }
 
   void onEnterGoogle() {
-    requestEnterEmail();
+    requestEnterGoogle();
   }
 
   Future<void> requestEnterGoogle() async {
     bool hasConnection = await _hasConnection;
     if (!hasConnection) {
-      setFailureText("Verifique sua conexão e tente novamente");
+      setFailureText("Verifique sua conexão e tente novamente.");
       return;
     }
 
