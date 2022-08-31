@@ -1,5 +1,6 @@
 import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/has_connection_usecase.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
+import 'package:fit_training_clean/app/core/utils/utils.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/recover_password_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -59,13 +60,17 @@ abstract class _RecoverPasswordStoreBase with Store {
   Future<void> requestRecoverPassword() async {
     setStatus(Status.loading);
 
+    bool hasConnection = await Utils.connection.hasConnection(hasConnectionUsecase);
+    if (!hasConnection) {
+      setFailureText("Verifique sua conexão e tente novamente");
+      return;
+    }
+
     var result = await recoverPasswordUsecase(email: email);
 
     result.fold(
       (failure) => setFailureText(failure.message),
-      (_) => {
-        setStatus(Status.success)
-      },
+      (_) => {setStatus(Status.success)},
     );
   }
 }

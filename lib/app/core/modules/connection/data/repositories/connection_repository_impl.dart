@@ -13,7 +13,7 @@ class ConnectionRepositoryImpl implements ConnectionRepository {
       var result = await datasource.hasConnection();
       return Right(result);
     } catch (e) {
-      return Left(ErrorConnection(message: "Error connection"));
+      return Left(ErrorConnection(message: "Verifique sua conexão e tente novamente."));
     }
   }
 }

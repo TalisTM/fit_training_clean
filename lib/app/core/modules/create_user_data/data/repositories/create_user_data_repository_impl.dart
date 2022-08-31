@@ -10,8 +10,9 @@ class CreateUserDataRepositoryImpl implements CreateUserDataRepository {
   CreateUserDataRepositoryImpl({required this.datasouce});
 
   @override
-  Future<Either<FailureCreateUserData, UserEntity>> createUserData(
-      {required UserEntity user}) async {
+  Future<Either<FailureCreateUserData, UserEntity>> createUserData({
+    required UserEntity user,
+  }) async {
     try {
       UserModel userModel = UserModel(
         uid: user.uid,
@@ -27,7 +28,7 @@ class CreateUserDataRepositoryImpl implements CreateUserDataRepository {
 
       return Right(resultUser);
     } catch (e) {
-      return Left(ErrorCreateUserData(message: "Error create user data"));
+      return Left(ErrorCreateUserData(message: "Erro ao salvar dados do usuário."));
     }
   }
 }
