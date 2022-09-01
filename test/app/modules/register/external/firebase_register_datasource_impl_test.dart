@@ -11,7 +11,7 @@ class UserCredentialMock extends Mock implements UserCredential {}
 
 class FirebaseAuthMock extends Mock implements FirebaseAuth {}
 
-final userMock = UserEntity(
+const userMock = UserEntity(
   uid: "1234",
   name: "Talis",
   email: "talismarchioro@gmail.com",

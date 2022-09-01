@@ -38,7 +38,6 @@ class LoginModule extends Module {
   @override
   List<Module> get imports => [
         CreateUserDataModule(),
-        AuthModule(),
         ConnectionModule(),
       ];
 

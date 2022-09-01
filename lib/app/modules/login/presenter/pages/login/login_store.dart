@@ -7,7 +7,6 @@ import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/core/utils/utils.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_email_usecase.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_google_usecase.dart';
-import 'package:fit_training_clean/app/modules/login/domain/usecases/recover_password_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';

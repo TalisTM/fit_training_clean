@@ -8,7 +8,7 @@ import 'package:mocktail/mocktail.dart';
 
 class CreateUserDataRepositoryMock extends Mock implements CreateUserDataRepository {}
 
-final userEntityMock = UserEntity(
+const userEntityMock = UserEntity(
   uid: "1234",
   name: "name",
   email: "email",
@@ -32,11 +32,11 @@ void main() {
       registerFallbackValue(userEntityMock);
       when(
         () => repository.createUserData(user: any(named: "user")),
-      ).thenAnswer((_) async => Right(userEntityMock));
+      ).thenAnswer((_) async => const Right(userEntityMock));
 
       var result = await usecase(user: userEntityMock);
 
-      expect(result, Right(userEntityMock));
+      expect(result, const Right(userEntityMock));
     });
 
     test("Deve retornar um ErrorCreateUserData", () async {

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fit_training_clean/app/core/modules/auth/auth_module.dart';
 import 'package:fit_training_clean/app/core/modules/splash/splash_module.dart';
 import 'package:fit_training_clean/app/modules/home/home_module.dart';
 import 'package:fit_training_clean/app/modules/login/login_module.dart';
@@ -11,6 +12,11 @@ class AppModule extends Module {
   List<Bind<Object>> get binds => [
         Bind((i) => FirebaseAuth.instance),
         Bind((i) => FirebaseFirestore.instance),
+      ];
+
+  @override
+  List<Module> get imports => [
+        AuthModule(),
       ];
 
   @override

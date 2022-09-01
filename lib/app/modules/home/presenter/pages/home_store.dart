@@ -1,7 +1,6 @@
 import 'package:fit_training_clean/app/core/modules/auth/domain/usecases/logout_usecase.dart';
 import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_store.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 

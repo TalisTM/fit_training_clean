@@ -15,7 +15,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   late final AnimationController _animationController;
 
-  void getUser() async {
+  Future<void> getUser() async {
     await store.checkLogin();
   }
 
@@ -30,16 +30,6 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       duration: const Duration(milliseconds: 700),
     );
     _animationController.forward();
-
-    _animationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        if (store.authStore.isLogged) {
-          Modular.to.pushNamedAndRemoveUntil("/home", (p0) => false);
-        } else {
-          Modular.to.pushNamedAndRemoveUntil("/login", (p0) => false);
-        }
-      }
-    });
   }
 
   @override

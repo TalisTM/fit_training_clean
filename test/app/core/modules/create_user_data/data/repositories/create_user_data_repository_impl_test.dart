@@ -20,7 +20,7 @@ final userModelMock = UserModel(
   workouts: [],
 );
 
-final userEntityMock = UserEntity(
+const userEntityMock = UserEntity(
   uid: "1234",
   name: "name",
   email: "email",

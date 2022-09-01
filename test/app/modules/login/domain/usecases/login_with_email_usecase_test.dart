@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 
 class LoginRepositoryMock extends Mock implements LoginRepository {}
 
-final UserEntity userEntityMock = UserEntity(
+const UserEntity userEntityMock = UserEntity(
   uid: "1234",
   name: "Talis",
   email: "talismarchioro@gmail.com",
@@ -37,14 +37,14 @@ void main() {
         email: any(named: "email"),
         password: any(named: "password"),
       ),
-    ).thenAnswer((_) async => Right(userEntityMock));
+    ).thenAnswer((_) async => const Right(userEntityMock));
   });
 
   group("Quando chamar o LoginWithEmailUsecase,", () {
     test("Deve retonar um UserEntity", () async {
       var result = await usecase(loginCredentialsMock);
 
-      expect(result, Right(userEntityMock));
+      expect(result, const Right(userEntityMock));
 
       verify(
         () => repository.loginEmail(
