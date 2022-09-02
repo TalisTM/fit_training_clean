@@ -1,4 +1,3 @@
-import 'package:fit_training_clean/app/core/modules/auth/auth_module.dart';
 import 'package:fit_training_clean/app/core/modules/connection/connection_module.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/create_user_data_module.dart';
 import 'package:fit_training_clean/app/modules/register/data/repositories/register_repository_impl.dart';
@@ -25,9 +24,11 @@ class RegisterModule extends Module {
   @override
   List<Module> get imports => [
         CreateUserDataModule(),
-        ConnectionModule()
+        ConnectionModule(),
       ];
 
   @override
-  List<ModularRoute> get routes => [ChildRoute("/", child: (_, __) => const RegisterPage())];
+  List<ModularRoute> get routes => [
+        ChildRoute("/", child: (_, __) => const RegisterPage()),
+      ];
 }

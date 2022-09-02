@@ -1,4 +1,3 @@
-import 'package:fit_training_clean/app/core/modules/auth/auth_module.dart';
 import 'package:fit_training_clean/app/core/modules/connection/connection_module.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/create_user_data_module.dart';
 import 'package:fit_training_clean/app/modules/login/data/repositories/login_repository_impl.dart';
