@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:fit_training_clean/app/core/modules/auth/data/models/exercise_model.dart';
-import 'package:fit_training_clean/app/core/modules/auth/domain/entities/workout_entity.dart';
+import 'package:fit_training_clean/app/modules/workout/data/models/exercise_model.dart';
+import 'package:fit_training_clean/app/modules/workout/domain/entities/workout_entity.dart';
+
 
 class WorkoutModel extends WorkoutEntity {
   WorkoutModel({
@@ -19,7 +20,7 @@ class WorkoutModel extends WorkoutEntity {
 
     result.addAll({'name': name});
     result.addAll({'content': content});
-    result.addAll({'exercises': exercises.map((x) => x.toMap()).toList()});
+    result.addAll({'exercises': exercises.map((x) => (x as ExerciseModel).toMap()).toList()});
 
     return result;
   }

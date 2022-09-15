@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:fit_training_clean/app/core/modules/auth/data/models/workout_model.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
-import 'package:fit_training_clean/app/core/modules/auth/domain/entities/workout_entity.dart';
+import 'package:fit_training_clean/app/modules/workout/data/models/workout_model.dart';
+import 'package:fit_training_clean/app/modules/workout/domain/entities/workout_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel({

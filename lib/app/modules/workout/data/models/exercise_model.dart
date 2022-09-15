@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:fit_training_clean/app/core/modules/auth/domain/entities/exercise_entity.dart';
+import 'package:fit_training_clean/app/modules/workout/domain/entities/exercise_entity.dart';
+
 
 class ExerciseModel extends ExerciseEntity {
   ExerciseModel({

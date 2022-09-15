@@ -20,8 +20,10 @@ class LoginWithEmailUsecaseImpl implements LoginWithEmailUsecase {
       return Left(ErrorLoginEmail(message: "Invalid password"));
     }
 
-    var result =
-        await repository.loginEmail(email: credential.email!, password: credential.password!);
+    var result = await repository.loginEmail(
+      email: credential.email!,
+      password: credential.password!,
+    );
 
     return result;
   }
