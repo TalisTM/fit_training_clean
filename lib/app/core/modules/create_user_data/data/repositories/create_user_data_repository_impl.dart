@@ -28,7 +28,7 @@ class CreateUserDataRepositoryImpl implements CreateUserDataRepository {
 
       return Right(resultUser);
     } catch (e) {
-      return Left(ErrorCreateUserData(message: "Erro ao salvar dados do usuário."));
+      return Left(ErrorCreateUserData(message: "Erro ao salvar dados do usuário. \n$e"));
     }
   }
 }

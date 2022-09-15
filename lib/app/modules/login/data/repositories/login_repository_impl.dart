@@ -27,9 +27,9 @@ class LoginRepositoryImpl implements LoginRepository {
       if (e.code == "wrong-password") {
         return Left(ErrorLoginEmail(message: "Senha inválida ou este usuário não possui uma senha."));
       }
-      return Left(ErrorLoginEmail(message: "Erro ao fazer login"));
+      return Left(ErrorLoginEmail(message: "Erro ao fazer login. \n$e"));
     } catch (e) {
-      return Left(ErrorLoginEmail(message: "Erro ao fazer login"));
+      return Left(ErrorLoginEmail(message: "Erro ao fazer login. \n$e"));
     }
   }
 
@@ -39,7 +39,7 @@ class LoginRepositoryImpl implements LoginRepository {
       var user = await datasource.loginGoogle();
       return Right(user);
     } catch (e) {
-      return Left(ErrorLoginGoogle(message: "Erro ao tentar autenticar com google."));
+      return Left(ErrorLoginGoogle(message: "Erro ao tentar autenticar com google. \n$e"));
     }
   }
 
@@ -56,9 +56,9 @@ class LoginRepositoryImpl implements LoginRepository {
         ));
       }
 
-      return Left(ErrorRecoverPassword(message: "Erro ao tentar recuperar senha."));
+      return Left(ErrorRecoverPassword(message: "Erro ao tentar recuperar senha. \n$e"));
     } catch (e) {
-      return Left(ErrorRecoverPassword(message: "Erro ao tentar recuperar senha."));
+      return Left(ErrorRecoverPassword(message: "Erro ao tentar recuperar senha. \n$e"));
     }
   }
 }

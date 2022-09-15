@@ -14,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
       var user = await datasource.currentUser();
       return Right(user);
     } catch (e) {
-      return Left(ErrorGetLoggedUser(message: "Erro ao obter usuário."));
+      return Left(ErrorGetLoggedUser(message: "Erro ao obter usuário. \n$e"));
     }
   }
 
@@ -24,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await datasource.logout();
       return const Right(unit);
     } catch (e) {
-      return Left(ErrorLogout(message: "Erro ao desconectar."));
+      return Left(ErrorLogout(message: "Erro ao desconectar. \n$e"));
     }
   }
 }

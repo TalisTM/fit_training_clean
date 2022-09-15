@@ -21,9 +21,9 @@ class RegisterRepositoryImpl implements RegisterRepository {
       if (e.code == "email-already-in-use") {
         return Left(ErrorRegisterEmail(message: "E-mail já cadastrado."));
       }
-      return Left(ErrorRegisterEmail(message: "Erro ao registrar."));
+      return Left(ErrorRegisterEmail(message: "Erro ao registrar. \n$e"));
     } catch (e) {
-      return Left(ErrorRegisterEmail(message: "Erro ao registrar."));
+      return Left(ErrorRegisterEmail(message: "Erro ao registrar. \n$e"));
     }
   }
 }
