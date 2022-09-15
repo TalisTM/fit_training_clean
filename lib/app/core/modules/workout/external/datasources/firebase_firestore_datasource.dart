@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fit_training_clean/app/modules/workout/data/datasources/workout_datasource.dart';
-import 'package:fit_training_clean/app/modules/workout/data/models/workout_model.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/entities/workout_entity.dart';
+import 'package:fit_training_clean/app/core/modules/workout/data/datasources/workout_datasource.dart';
+import 'package:fit_training_clean/app/core/modules/workout/data/models/workout_model.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/entities/workout_entity.dart';
 
 class FirebaseFirestoreDatasource implements WorkoutDatasource {
   final FirebaseFirestore firestore;

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/entities/workout_entity.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/errors/errors.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/repositories/workout_repository.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/usecases/update_workout_usecase.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/entities/workout_entity.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/errors/errors.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/repositories/workout_repository.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/usecases/update_workout_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:fit_training_clean/app/modules/workout/data/datasources/workout_datasource.dart';
-import 'package:fit_training_clean/app/modules/workout/data/repositories/workout_repository_impl.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/entities/workout_entity.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/errors/errors.dart';
-import 'package:fit_training_clean/app/modules/workout/domain/repositories/workout_repository.dart';
+import 'package:fit_training_clean/app/core/modules/workout/data/datasources/workout_datasource.dart';
+import 'package:fit_training_clean/app/core/modules/workout/data/repositories/workout_repository_impl.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/entities/workout_entity.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/errors/errors.dart';
+import 'package:fit_training_clean/app/core/modules/workout/domain/repositories/workout_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -39,7 +39,7 @@ void main() {
         () => datasource.updateWorkouts(uid: any(named: "uid"), workouts: any(named: "workouts")),
       ).thenAnswer((_) async {});
 
-      var result = await repository.updateWorkouts(uid: any(named: "uid"), workouts: listWorkoutEntityMock);
+      var result = await repository.updateWorkouts(uid: "", workouts: listWorkoutEntityMock);
 
       expect(result, isA<Right<dynamic, Unit>>());
     });
@@ -49,7 +49,7 @@ void main() {
         () => datasource.updateWorkouts(uid: any(named: "uid"), workouts: any(named: "workouts")),
       ).thenThrow(Exception());
 
-      var result = await repository.updateWorkouts(uid: any(named: "uid"), workouts: listWorkoutEntityMock);
+      var result = await repository.updateWorkouts(uid: "", workouts: listWorkoutEntityMock);
 
       expect(result.leftMap((l) => l is ErrorUpdateWorkout), const Left(true));
     });
