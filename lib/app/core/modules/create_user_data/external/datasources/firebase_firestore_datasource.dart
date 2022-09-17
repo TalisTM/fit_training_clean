@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fit_training_clean/app/core/modules/auth/data/models/user_model.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/data/datasources/create_user_data_datasource.dart';
 
-class FirebaseFirestoreDatasourceImpl implements CreateUserDataDatasouce {
+class FirebaseFirestoreUserDatasource implements CreateUserDataDatasouce {
   final FirebaseFirestore firestore;
-  FirebaseFirestoreDatasourceImpl({required this.firestore});
+  FirebaseFirestoreUserDatasource({required this.firestore});
 
   @override
   Future<UserModel> createUserData({required UserModel user}) async {

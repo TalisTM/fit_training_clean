@@ -38,7 +38,7 @@ class AbstractDatasWidget extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: edit,
               ),
               Text(
                 "$amountDone Feitos",

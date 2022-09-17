@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_training_clean/app/core/modules/auth/auth_module.dart';
 import 'package:fit_training_clean/app/core/modules/splash/splash_module.dart';
+import 'package:fit_training_clean/app/modules/crud_workout/crud_workout_module.dart';
 import 'package:fit_training_clean/app/modules/home/home_module.dart';
 import 'package:fit_training_clean/app/modules/login/login_module.dart';
 import 'package:fit_training_clean/app/modules/register/register_module.dart';
@@ -25,5 +26,6 @@ class AppModule extends Module {
         ModuleRoute("/home", module: HomeModule()),
         ModuleRoute("/login", module: LoginModule()),
         ModuleRoute("/register", module: RegisterModule()),
+        ModuleRoute("/crud-workout", module: CrudWorkoutmodule()),
       ];
 }

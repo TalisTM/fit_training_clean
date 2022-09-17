@@ -26,6 +26,10 @@ abstract class _HomeStoreBase with Store {
     failureText = value;
   }
 
+  void onEdit() {
+    Modular.to.pushNamed("/crud-workout");
+  }
+
   void onLogout() {
     requestlogout();
   }

@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 AbstractDatasWidget(
                   amountDone: user.amountDone,
-                  edit: () {},
+                  edit: store.onEdit,
                 )
               ],
             );
