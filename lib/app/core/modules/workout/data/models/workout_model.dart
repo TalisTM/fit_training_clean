@@ -33,6 +33,14 @@ class WorkoutModel extends WorkoutEntity {
     );
   }
 
+  factory WorkoutModel.fromEntity(WorkoutEntity entity) {
+    return WorkoutModel(
+      name: entity.name,
+      content: entity.content,
+      exercises: List<ExerciseModel>.from(entity.exercises.map((x) => ExerciseModel.fromEntity(x))),
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory WorkoutModel.fromJson(String source) => WorkoutModel.fromMap(json.decode(source));

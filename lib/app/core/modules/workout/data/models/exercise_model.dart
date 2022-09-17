@@ -44,6 +44,17 @@ class ExerciseModel extends ExerciseEntity {
     );
   }
 
+  factory ExerciseModel.fromEntity(ExerciseEntity entity) {
+    return ExerciseModel(
+      name: entity.name,
+      numberSeries: entity.numberSeries,
+      numberRepetitions: entity.numberRepetitions,
+      weight: entity.weight,
+      hasChecked: entity.hasChecked,
+      hasDone: entity.hasDone,
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory ExerciseModel.fromJson(String source) => ExerciseModel.fromMap(json.decode(source));

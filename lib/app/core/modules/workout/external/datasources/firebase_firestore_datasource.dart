@@ -9,11 +9,12 @@ class FirebaseFirestoreDatasource implements WorkoutDatasource {
 
   @override
   Future<void> updateWorkouts({required String uid, required List<WorkoutEntity> workouts}) async {
-    
-    List<WorkoutModel> list = (workouts as List<WorkoutModel>);
+    List<Map<String, dynamic>> list = workouts
+        .map(
+          (workout) => WorkoutModel.fromEntity(workout).toMap(),
+        )
+        .toList();
 
-    List<Map<String, dynamic>> aux = list.map((workout) => workout.toMap()).toList();
-
-    await firestore.collection(uid).doc(uid).update({"workouts" : aux});
+    await firestore.collection("user").doc(uid).update({"workouts": list});
   }
 }

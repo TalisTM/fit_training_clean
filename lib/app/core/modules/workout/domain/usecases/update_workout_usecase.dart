@@ -4,7 +4,10 @@ import 'package:fit_training_clean/app/core/modules/workout/domain/errors/errors
 import 'package:fit_training_clean/app/core/modules/workout/domain/repositories/workout_repository.dart';
 
 abstract class UpdateWorkoutUsecase {
-  Future<Either<FailureWorkout, Unit>> call({required String uid, required List<WorkoutEntity> workouts});
+  Future<Either<FailureWorkout, Unit>> call({
+    required String uid,
+    required List<WorkoutEntity> workouts,
+  });
 }
 
 class UpdateWorkoutUsecaseImpl implements UpdateWorkoutUsecase {
@@ -12,7 +15,10 @@ class UpdateWorkoutUsecaseImpl implements UpdateWorkoutUsecase {
   UpdateWorkoutUsecaseImpl({required this.repository});
 
   @override
-  Future<Either<FailureWorkout, Unit>> call({required String uid, required List<WorkoutEntity> workouts}) async {
+  Future<Either<FailureWorkout, Unit>> call({
+    required String uid,
+    required List<WorkoutEntity> workouts,
+  }) async {
     var result = await repository.updateWorkouts(uid: uid, workouts: workouts);
     return result;
   }

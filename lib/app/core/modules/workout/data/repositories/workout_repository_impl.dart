@@ -9,7 +9,8 @@ class WorkoutRepositoryImpl implements WorkoutRepository {
   WorkoutRepositoryImpl({required this.datasource});
 
   @override
-  Future<Either<FailureWorkout, Unit>> updateWorkouts({required String uid, required List<WorkoutEntity> workouts}) async {
+  Future<Either<FailureWorkout, Unit>> updateWorkouts(
+      {required String uid, required List<WorkoutEntity> workouts}) async {
     try {
       await datasource.updateWorkouts(uid: uid, workouts: workouts);
       return const Right(unit);
