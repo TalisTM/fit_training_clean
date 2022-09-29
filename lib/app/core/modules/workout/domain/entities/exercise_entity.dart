@@ -14,4 +14,22 @@ class ExerciseEntity {
     required this.hasChecked,
     required this.hasDone,
   });
+
+  ExerciseEntity copyWith({
+    String? name,
+    int? numberSeries,
+    String? numberRepetitions,
+    String? weight,
+    bool? hasChecked,
+    bool? hasDone,
+  }) {
+    return ExerciseEntity(
+      name: name ?? this.name,
+      numberSeries: numberSeries ?? this.numberSeries,
+      numberRepetitions: numberRepetitions ?? this.numberRepetitions,
+      weight: weight ?? this.weight,
+      hasChecked: hasChecked ?? this.hasChecked,
+      hasDone: hasDone ?? this.hasDone,
+    );
+  }
 }

@@ -10,4 +10,16 @@ class WorkoutEntity {
     required this.content,
     required this.exercises,
   });
+
+  WorkoutEntity copyWith({
+    String? name,
+    String? content,
+    List<ExerciseEntity>? exercises,
+  }) {
+    return WorkoutEntity(
+      name: name ?? this.name,
+      content: content ?? this.content,
+      exercises: exercises ?? this.exercises,
+    );
+  }
 }

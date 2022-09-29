@@ -18,4 +18,24 @@ class UserEntity {
     required this.restTimeInSeconds,
     required this.workouts,
   });
+
+  UserEntity copyWith({
+    String? uid,
+    String? name,
+    String? email,
+    String? photoUrl,
+    int? amountDone,
+    int? restTimeInSeconds,
+    List<WorkoutEntity>? workouts,
+  }) {
+    return UserEntity(
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      photoUrl: photoUrl ?? this.photoUrl,
+      amountDone: amountDone ?? this.amountDone,
+      restTimeInSeconds: restTimeInSeconds ?? this.restTimeInSeconds,
+      workouts: workouts ?? this.workouts,
+    );
+  }
 }
