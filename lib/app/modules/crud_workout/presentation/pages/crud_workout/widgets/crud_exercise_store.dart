@@ -44,12 +44,9 @@ abstract class _CrudExerciseStoreBase with Store {
     }
   }
 
-  // NAME
-  @observable
-  String name = "";
-
+  //NAME
   @action
-  void setName(String value) => name = value;
+  void setName(String value) => setExercise(exercise.copyWith(name: value));
 
   String? validatorName(String? value) {
     if (value == null || value.isEmpty) {
@@ -58,12 +55,11 @@ abstract class _CrudExerciseStoreBase with Store {
     return null;
   }
 
-  // numberRepetitions
-  @observable
-  String numberRepetitions = "";
-
+  //NumberRepetitions
   @action
-  void setNumberRepetitions(String value) => numberRepetitions = value;
+  void setNumberRepetitions(String value) => setExercise(
+        exercise.copyWith(numberRepetitions: value),
+      );
 
   String? validatorNumberRepetitions(String? value) {
     if (value == null || value.isEmpty) {
@@ -72,14 +68,11 @@ abstract class _CrudExerciseStoreBase with Store {
     return null;
   }
 
-  // WEIGHT
-  @observable
-  String weight = "";
-
+  //Weight
   @action
-  void setweight(String value) => name = value;
+  void setweight(String value) => setExercise(exercise.copyWith(weight: value));
 
-  String? validatorweight(String? value) {
+  String? validatorWeight(String? value) {
     if (value == null) {
       return "peso inválido";
     }

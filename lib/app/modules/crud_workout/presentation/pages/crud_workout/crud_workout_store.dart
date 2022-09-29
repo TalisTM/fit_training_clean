@@ -1,3 +1,4 @@
+import 'package:fit_training_clean/app/core/components/custom_dialog.dart';
 import 'package:fit_training_clean/app/core/modules/workout/domain/entities/workout_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -16,16 +17,25 @@ abstract class _CrudWorkoutStoreBase with Store {
   @action
   void setWorkout(WorkoutEntity value) => workout = value;
 
-  void onPressed() {
+  void onPressed(BuildContext context) async {
+    if (!key.currentState!.validate()) return;
+    if (workout.exercises.isEmpty) {
+      await showDialog(
+        context: context,
+        builder: (context) => const CustomDialogWidget(
+          title: "Atenção",
+          content: "Adicione pelo menos um exercício ao treino",
+          textPrimaryButton: "Ok",
+        ),
+      );
+      return;
+    }
     Modular.to.pop(workout);
   }
 
   // NAME
-  @observable
-  String name = "";
-
   @action
-  void setName(String value) => name = value;
+  void setName(String value) => setWorkout(workout.copyWith(name: value));
 
   String? validatorName(String? value) {
     if (value == null || value.isEmpty) {
@@ -34,16 +44,13 @@ abstract class _CrudWorkoutStoreBase with Store {
     return null;
   }
 
-  // NAME
-  @observable
-  String content = "";
-
+  // content
   @action
-  void setContent(String value) => content = value;
+  void setContent(String value) => setWorkout(workout.copyWith(content: value));
 
   String? validatorContent(String? value) {
     if (value == null || value.isEmpty) {
-      return "nome inválido";
+      return "Descrição inválida";
     }
     return null;
   }

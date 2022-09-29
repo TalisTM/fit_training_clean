@@ -45,46 +45,49 @@ class _CrudWorkoutPageState extends State<CrudWorkoutPage> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            CustomTextfield(
-              controller: nameController,
-              onChanged: store.setName,
-              validator: store.validatorName,
-              labelText: "nome",
-              hintText: "Ex: Treino A",
-              padding: const EdgeInsets.only(top: 15, bottom: 10),
-            ),
-            CustomTextfield(
-              controller: contentController,
-              onChanged: store.setContent,
-              validator: store.validatorContent,
-              labelText: "Descrição",
-              hintText: "Ex: Peito",
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: store.workout.exercises.length,
-              itemBuilder: (_, index) {
-                ExerciseEntity exercise = store.workout.exercises[index];
-                return Text(
-                  exercise.name,
-                  style: const TextStyle(color: Colors.white),
-                );
-              },
-            ),
-            CustomElevatedButton.outlined(
-              label: "Adicionar exercicio",
-              onPressed: _addExercise,
-            )
-          ],
+        child: Form(
+          key: store.key,
+          child: Column(
+            children: [
+              CustomTextfield(
+                controller: nameController,
+                onChanged: store.setName,
+                validator: store.validatorName,
+                labelText: "nome",
+                hintText: "Ex: Treino A",
+                padding: const EdgeInsets.only(top: 15, bottom: 10),
+              ),
+              CustomTextfield(
+                controller: contentController,
+                onChanged: store.setContent,
+                validator: store.validatorContent,
+                labelText: "Descrição",
+                hintText: "Ex: Peito",
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: store.workout.exercises.length,
+                itemBuilder: (_, index) {
+                  ExerciseEntity exercise = store.workout.exercises[index];
+                  return Text(
+                    exercise.name,
+                    style: const TextStyle(color: Colors.white),
+                  );
+                },
+              ),
+              CustomElevatedButton.outlined(
+                label: "Adicionar exercicio",
+                onPressed: _addExercise,
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CustomElevatedButton(
         label: Modular.args.data != null ? "Editar treino" : "Adicionar treino",
-        onPressed: store.onPressed,
+        onPressed: () => store.onPressed(context),
       ),
     );
   }

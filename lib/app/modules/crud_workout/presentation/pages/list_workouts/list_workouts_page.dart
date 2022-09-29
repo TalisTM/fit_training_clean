@@ -36,12 +36,8 @@ class _ListWorkoutsPageState extends State<ListWorkoutsPage> {
                   return WorkoutTileWidget(
                     name: workout.name,
                     content: workout.content,
-                    onTap: () {
-                      store.onEditWorkout(index);
-                    },
-                    onDelete: () {
-                      store.onDelete(index);
-                    },
+                    onTap: () => store.onEditWorkout(index),
+                    onDelete: () => store.onDelete(index),
                   );
                 },
               );

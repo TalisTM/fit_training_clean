@@ -117,7 +117,7 @@ class _CrudExerciseWidgetState extends State<CrudExerciseWidget> {
               CustomTextfield(
                 controller: weightController,
                 onChanged: store.setweight,
-                validator: store.validatorweight,
+                validator: store.validatorWeight,
                 labelText: "peso (opcional)",
                 hintText: "Ex: 12",
                 padding: const EdgeInsets.only(top: 15, bottom: 15),
