@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
+import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/has_connection_usecase.dart';
 import 'package:fit_training_clean/app/modules/login/domain/errors/errors.dart';
 import 'package:fit_training_clean/app/modules/login/domain/repositories/login_repository.dart';
 import 'package:fit_training_clean/app/modules/login/domain/usecases/login_with_email_usecase.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class LoginRepositoryMock extends Mock implements LoginRepository {}
+
+class HasConnectionUsecaseMock extends Mock implements HasConnectionUsecase {}
 
 const UserEntity userEntityMock = UserEntity(
   uid: "1234",
@@ -25,12 +28,19 @@ late LoginCredentials loginCredentialsMock = LoginCredentials.withEmailAndPasswo
 
 void main() {
   late LoginRepository repository;
+  late HasConnectionUsecase hasConnectionUsecase;
   late LoginWithEmailUsecase usecase;
 
   setUp(() {
     registerFallbackValue(loginCredentialsMock);
     repository = LoginRepositoryMock();
-    usecase = LoginWithEmailUsecaseImpl(repository: repository);
+    hasConnectionUsecase = HasConnectionUsecaseMock();
+    usecase = LoginWithEmailUsecaseImpl(
+        repository: repository, hasConnectionUsecase: hasConnectionUsecase);
+
+    when(
+      () => hasConnectionUsecase(),
+    ).thenAnswer((_) async => const Right(true));
 
     when(
       () => repository.loginEmail(

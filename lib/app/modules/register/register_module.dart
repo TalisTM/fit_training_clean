@@ -10,11 +10,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 class RegisterModule extends Module {
   @override
   List<Bind<Object>> get binds => [
-        Bind((i) => RegisterWithEmailUsecaseImpl(repository: i())),
+        Bind((i) => RegisterWithEmailUsecaseImpl(repository: i(), hasConnectionUsecase: i())),
         Bind((i) => RegisterRepositoryImpl(datasource: i())),
         Bind((i) => FirebaseRegisterDatasourceImpl(auth: i())),
         Bind((i) => RegisterStore(
-              hasConnectionUsecase: i(),
               authStore: i(),
               createUserDataUsecase: i(),
               registerWithEmailUsecase: i(),

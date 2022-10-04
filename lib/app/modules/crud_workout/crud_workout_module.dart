@@ -1,3 +1,4 @@
+import 'package:fit_training_clean/app/core/modules/connection/connection_module.dart';
 import 'package:fit_training_clean/app/core/modules/workout/workout_module.dart';
 import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/crud_workout_page.dart';
 import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/crud_workout_store.dart';
@@ -18,6 +19,7 @@ class CrudWorkoutmodule extends Module {
   @override
   List<Module> get imports => [
     WorkoutModule(),
+    ConnectionModule(),
   ];
 
   @override

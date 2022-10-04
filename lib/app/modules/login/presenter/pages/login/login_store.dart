@@ -1,7 +1,6 @@
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/login_credentials.dart';
 import 'package:fit_training_clean/app/core/modules/auth/domain/entities/user_entity.dart';
 import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_store.dart';
-import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/has_connection_usecase.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/domain/usecases/create_user_data_usecase.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
 import 'package:fit_training_clean/app/core/utils/utils.dart';
@@ -16,14 +15,12 @@ part 'login_store.g.dart';
 class LoginStore = _LoginStoreBase with _$LoginStore;
 
 abstract class _LoginStoreBase with Store {
-  final HasConnectionUsecase hasConnectionUsecase;
   final LoginWithEmailUsecase loginWithEmailUsecase;
   final LoginWithGoogleUsecase loginWithGoogleUsecase;
   final CreateUserDataUsecase createUserDataUsecase;
   final AuthStore authStore;
 
   _LoginStoreBase({
-    required this.hasConnectionUsecase,
     required this.loginWithEmailUsecase,
     required this.loginWithGoogleUsecase,
     required this.createUserDataUsecase,
@@ -90,10 +87,6 @@ abstract class _LoginStoreBase with Store {
         password: password,
       );
 
-  Future<bool> get _hasConnection async => await Utils.connection.hasConnection(
-        hasConnectionUsecase,
-      );
-
   void onEnterEmail() {
     if (!key.currentState!.validate()) return;
     requestEnterEmail();
@@ -101,12 +94,6 @@ abstract class _LoginStoreBase with Store {
 
   Future<void> requestEnterEmail() async {
     setStatus(Status.loading);
-
-    bool hasConnection = await _hasConnection;
-    if (!hasConnection) {
-      setFailureText("Verifique sua conexão e tente novamente.");
-      return;
-    }
 
     var loginWithEmail = await loginWithEmailUsecase(credential);
     loginWithEmail.fold(
@@ -120,12 +107,6 @@ abstract class _LoginStoreBase with Store {
   }
 
   Future<void> requestEnterGoogle() async {
-    bool hasConnection = await _hasConnection;
-    if (!hasConnection) {
-      setFailureText("Verifique sua conexão e tente novamente.");
-      return;
-    }
-
     var result = await loginWithGoogleUsecase();
 
     result.fold(

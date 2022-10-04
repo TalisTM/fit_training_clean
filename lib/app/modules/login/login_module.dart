@@ -16,22 +16,18 @@ class LoginModule extends Module {
   @override
   List<Bind<Object>> get binds => [
         Bind((i) => GoogleSignIn()),
-        Bind((i) => LoginWithEmailUsecaseImpl(repository: i())),
-        Bind((i) => LoginWithGoogleUsecaseImpl(repository: i())),
-        Bind((i) => RecoverPasswordUsecaseImpl(repository: i())),
+        Bind((i) => LoginWithEmailUsecaseImpl(repository: i(), hasConnectionUsecase: i())),
+        Bind((i) => LoginWithGoogleUsecaseImpl(repository: i(), hasConnectionUsecase: i())),
+        Bind((i) => RecoverPasswordUsecaseImpl(repository: i(), hasConnectionUsecase: i())),
         Bind((i) => LoginRepositoryImpl(datasource: i())),
         Bind((i) => FirebaseLoginDatasourceImpl(auth: i(), googleSignIn: i())),
         Bind((i) => LoginStore(
-              hasConnectionUsecase: i(),
               loginWithEmailUsecase: i(),
               loginWithGoogleUsecase: i(),
               createUserDataUsecase: i(),
               authStore: i(),
             )),
-        Bind((i) => RecoverPasswordStore(
-              hasConnectionUsecase: i(),
-              recoverPasswordUsecase: i(),
-            )),
+        Bind((i) => RecoverPasswordStore(recoverPasswordUsecase: i())),
       ];
 
   @override

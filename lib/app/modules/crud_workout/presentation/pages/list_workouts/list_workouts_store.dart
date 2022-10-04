@@ -49,9 +49,12 @@ abstract class _ListWorkoutsStoreBase with Store {
       (l) {
         //mostrar erro na tela
 
+        print(l.message);
+
         workouts = ObservableList.of(authStore.user!.workouts);
       },
       (_) {
+        print("foooi");
         authStore.setWorkout(workouts);
       },
     );

@@ -3,11 +3,16 @@ import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/h
 class Connection {
   const Connection();
 
-  Future<bool> hasConnection(HasConnectionUsecase hasConnectionUsecase) async {
+  Future<String?> hasConnection(HasConnectionUsecase hasConnectionUsecase) async {
     var result = await hasConnectionUsecase();
     return result.fold(
-      (_) => false,
-      (hasConnection) => hasConnection,
+      (_) => "Verifique sua conexão e tente novamente",
+      (hasConnection) {
+        if (!hasConnection) {
+          return "Verifique sua conexão e tente novamente";
+        }
+        return null;
+      },
     );
   }
 }

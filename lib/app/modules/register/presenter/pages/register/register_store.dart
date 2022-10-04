@@ -4,7 +4,6 @@ import 'package:fit_training_clean/app/core/modules/auth/presenter/stores/auth_s
 import 'package:fit_training_clean/app/core/modules/connection/domain/usecases/has_connection_usecase.dart';
 import 'package:fit_training_clean/app/core/modules/create_user_data/domain/usecases/create_user_data_usecase.dart';
 import 'package:fit_training_clean/app/core/utils/status.dart';
-import 'package:fit_training_clean/app/core/utils/utils.dart';
 import 'package:fit_training_clean/app/modules/register/domain/usecases/register_with_email_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -15,13 +14,11 @@ part 'register_store.g.dart';
 class RegisterStore = _RegisterStoreBase with _$RegisterStore;
 
 abstract class _RegisterStoreBase with Store {
-  final HasConnectionUsecase hasConnectionUsecase;
   final RegisterWithEmailUsecase registerWithEmailUsecase;
   final CreateUserDataUsecase createUserDataUsecase;
   final AuthStore authStore;
 
   _RegisterStoreBase({
-    required this.hasConnectionUsecase,
     required this.registerWithEmailUsecase,
     required this.createUserDataUsecase,
     required this.authStore,
@@ -115,12 +112,6 @@ abstract class _RegisterStoreBase with Store {
 
   Future<void> requestRegisterEmail() async {
     setStatus(Status.loading);
-
-    bool hasConnection = await Utils.connection.hasConnection(hasConnectionUsecase);
-    if (!hasConnection) {
-      setFailureText("Verifique sua conexão e tente novamente");
-      return;
-    }
 
     var result = await registerWithEmailUsecase(credential);
     result.fold(
