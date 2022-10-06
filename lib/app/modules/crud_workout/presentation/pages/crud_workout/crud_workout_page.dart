@@ -1,8 +1,9 @@
 import 'package:fit_training_clean/app/core/components/custom_elevated_button.dart';
 import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
 import 'package:fit_training_clean/app/core/modules/workout/domain/entities/exercise_entity.dart';
+import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_exercise/crud_exercise_page.dart';
 import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/crud_workout_store.dart';
-import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/widgets/crud_exercise_widget.dart';
+import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/widgets/exercise_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -70,9 +71,10 @@ class _CrudWorkoutPageState extends State<CrudWorkoutPage> {
                 itemCount: store.workout.exercises.length,
                 itemBuilder: (_, index) {
                   ExerciseEntity exercise = store.workout.exercises[index];
-                  return Text(
-                    exercise.name,
-                    style: const TextStyle(color: Colors.white),
+                  return ExerciseTileWidget(
+                    exercise: exercise,
+                    onTap: () {},
+                    onDelete: () {},
                   );
                 },
               ),
@@ -95,7 +97,7 @@ class _CrudWorkoutPageState extends State<CrudWorkoutPage> {
   Future<void> _addExercise() async {
     var result = await showDialog(
       context: context,
-      builder: (context) => const CrudExerciseWidget(),
+      builder: (context) => const CrudExercisePage(),
     );
 
     if (result != null) {

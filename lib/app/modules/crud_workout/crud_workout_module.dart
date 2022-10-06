@@ -1,8 +1,8 @@
 import 'package:fit_training_clean/app/core/modules/connection/connection_module.dart';
 import 'package:fit_training_clean/app/core/modules/workout/workout_module.dart';
+import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_exercise/crud_exercise_store.dart';
 import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/crud_workout_page.dart';
 import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/crud_workout_store.dart';
-import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/widgets/crud_exercise_store.dart';
 import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/list_workouts/list_workouts_page.dart';
 import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/list_workouts/list_workouts_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';

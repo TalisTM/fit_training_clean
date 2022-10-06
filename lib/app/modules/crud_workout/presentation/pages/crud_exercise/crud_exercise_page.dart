@@ -1,23 +1,23 @@
 import 'package:fit_training_clean/app/core/components/custom_elevated_button.dart';
 import 'package:fit_training_clean/app/core/components/custom_textfield.dart';
 import 'package:fit_training_clean/app/core/modules/workout/domain/entities/exercise_entity.dart';
-import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_workout/widgets/crud_exercise_store.dart';
+import 'package:fit_training_clean/app/modules/crud_workout/presentation/pages/crud_exercise/crud_exercise_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CrudExerciseWidget extends StatefulWidget {
+class CrudExercisePage extends StatefulWidget {
   final ExerciseEntity? exercise;
-  const CrudExerciseWidget({
+  const CrudExercisePage({
     Key? key,
     this.exercise,
   }) : super(key: key);
 
   @override
-  State<CrudExerciseWidget> createState() => _CrudExerciseWidgetState();
+  State<CrudExercisePage> createState() => _CrudExercisePageState();
 }
 
-class _CrudExerciseWidgetState extends State<CrudExerciseWidget> {
+class _CrudExercisePageState extends State<CrudExercisePage> {
   CrudExerciseStore store = Modular.get<CrudExerciseStore>();
 
   late final TextEditingController nameController;
